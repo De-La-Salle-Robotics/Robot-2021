@@ -1,13 +1,16 @@
 package frc.robot;
 
-import frc.robot.hardware.RobotHardware;
-import frc.robot.subsystems.Drivetrain;
+import frc.robot.hardware.RobotMap;
+import frc.robot.subsystems.*;
 
 public class RobotVault {
     Drivetrain _drivetrain;
+    Arm _arm;
+    Belt _belt;
+    Intake _intake;
     public RobotVault() {
-        RobotHardware asfd = new RobotHardware();
-        _drivetrain = new Drivetrain(RobotHardware.leftMaster, RobotHardware.rightMaster);
+        _arm = new Arm(RobotMap.arm);
+        _drivetrain = new Drivetrain(RobotMap.leftMaster, RobotMap.rightMaster);
     }
 
 }

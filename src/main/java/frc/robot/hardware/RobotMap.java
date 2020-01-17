@@ -1,14 +1,15 @@
 package frc.robot.hardware;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-public class RobotHardware {
+public class RobotMap {
     public static TalonSRX leftMaster;
     public static TalonSRX leftSlave;
     public static TalonSRX rightMaster;
     public static TalonSRX rightSlave;
 
-    public static TalonSRX arm;
+    public static VictorSPX arm;
 
     static {
         leftMaster = new TalonSRX(1);

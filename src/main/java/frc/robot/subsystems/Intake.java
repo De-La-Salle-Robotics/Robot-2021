@@ -1,22 +1,24 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
+
+import frc.robot.utils.JoystickVals;
 
 public class Intake {
-    public VictorSPX intake;
+    public BaseMotorController intake;
 
-    public Intake(VictorSPX intake){
+    public Intake(BaseMotorController intake){
         this.intake = intake;
     }
 
-    public Intake (boolean in, boolean out){
+    public void intakeControl(JoystickVals joysticks){
         double intakepower = 0; 
 
-        if (in){
+        if (joysticks.collectorSuck){
             intakepower = 1.0;
         }
-        else if (out){
+        else if (joysticks.collectorBlow){
             intakepower = -1.0;
         }
         else{

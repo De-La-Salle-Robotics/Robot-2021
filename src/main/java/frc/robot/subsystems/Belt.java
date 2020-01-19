@@ -1,21 +1,22 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import frc.robot.utils.JoystickVals;
 
 public class Belt{
-    public VictorSPX belt;
+    public BaseMotorController belt;
 
-    public Belt(VictorSPX belt){
+    public Belt(BaseMotorController belt){
         this.belt = belt;
     }
-    public Belt(Boolean in, Boolean out){
+    public void beltControl(JoystickVals joysticks){
         double beltpower = 0;
 
-        if (in){
+        if (joysticks.in){
             beltpower = 0.5;
         }
-        else if (out){
+        else if (joysticks.out){
             beltpower = -0.5;
         }
         else{

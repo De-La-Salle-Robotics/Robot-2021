@@ -1,19 +1,33 @@
 package frc.robot.hardware;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.*;
 
 public class RobotMap {
-    public static TalonSRX leftMaster;
-    public static TalonSRX leftSlave;
-    public static TalonSRX rightMaster;
-    public static TalonSRX rightSlave;
+    /* Drivetrain */
+    public static BaseTalon leftMaster;
+    public static BaseMotorController leftSlave;
+    public static BaseTalon rightMaster;
+    public static BaseMotorController rightSlave;
 
-    public static VictorSPX arm;
+    /* Arm and Collector */
+    public static BaseMotorController arm;
+    public static BaseMotorController intake;
+    /* Conveyor Belt */
+    public static BaseMotorController belt;
+    /* Climber */
+    public static BaseMotorController climb;
 
     static {
         leftMaster = new TalonSRX(1);
-        leftSlave = new TalonSRX(2);
+        leftSlave = new VictorSPX(1);
+        rightMaster = new TalonSRX(2);
+        rightSlave = new VictorSPX(2);
 
+        arm = new TalonSRX(3);
+        intake = new VictorSPX(3);
+
+        belt = new VictorSPX(4);
+        
+        climb = new VictorSPX(5);
     }
 }

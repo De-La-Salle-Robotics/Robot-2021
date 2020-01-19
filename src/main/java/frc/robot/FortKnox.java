@@ -27,6 +27,7 @@ public class FortKnox {
         _belt.beltControl(_joysticks);
         _intake.intakeControl(_joysticks);
         _climb.climbControl(_joysticks);
+        _drivetrain.operate(_joysticks);
     }
 }
 

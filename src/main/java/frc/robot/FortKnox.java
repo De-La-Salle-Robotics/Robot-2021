@@ -47,6 +47,7 @@ public class FortKnox {
     }
     public void periodicTasks(){
         _joysticks.getJoystickValues();
+        _sensors.getSensorValues();
 
         switch(_currentState)
         {

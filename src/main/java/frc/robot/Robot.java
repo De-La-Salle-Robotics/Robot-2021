@@ -9,6 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.FortKnox;
+import frc.robot.FortKnox.FortKnoxState;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -35,26 +36,22 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-  }
-
-  @Override
-  public void autonomousPeriodic() {
+    fortknox.changeState(FortKnoxState.Autonomous);
   }
 
   @Override
   public void teleopInit() {
+    fortknox.changeState(FortKnoxState.Teleoperated);
   }
 
   @Override
-  public void teleopPeriodic() {
+  public void disabledInit() {
+    fortknox.changeState(FortKnoxState.Disabled);
   }
 
   @Override
   public void testInit() {
-  }
-
-  @Override
-  public void testPeriodic() {
+    fortknox.changeState(FortKnoxState.Test);
   }
 
 }

@@ -5,23 +5,23 @@ import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 
 import frc.robot.utils.JoystickVals;
 
-public class Hook {
-    public BaseMotorController Hook;
+public class Winch {
+    private BaseMotorController _winch;
     
-    public Hook(BaseMotorController Hook){
-        this.Hook = Hook;
+    public Winch(BaseMotorController winch){
+        this._winch = winch;
     }
 
     public void HookControl(JoystickVals joysticks){
-        double hookpower = 0;
+        double winchPower = 0;
 
-        if (joysticks.hookUp){
-            hookpower = 1.0;
+        if (joysticks.winchDown){
+            winchPower = 1.0;
         }
         else{
-            hookpower = 0;
+            winchPower = 0;
         }
-        Hook.set(ControlMode.PercentOutput, hookpower);
+        _winch.set(ControlMode.PercentOutput, winchPower);
 
         
     }

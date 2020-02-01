@@ -2,7 +2,7 @@ package frc.robot.hardware;
 
 import com.ctre.phoenix.motorcontrol.can.*;
 
-import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.Joystick;
 
 public class RobotMap {
     /* Drivetrain */
@@ -19,7 +19,10 @@ public class RobotMap {
     public static BaseMotorController shooter;
     /* Climber */
     public static BaseMotorController climb;
+    public static BaseMotorController winch;
 
+    public static Joystick driverJoystick;
+    public static Joystick operatorJoystick;
     static {
         leftMaster = new TalonSRX(1);
         leftSlave = new VictorSPX(1);
@@ -33,6 +36,9 @@ public class RobotMap {
         shooter = new VictorSPX(5);
 
         climb = new VictorSPX(6);
-        hook = new VictorSPX(7);
+        winch = new VictorSPX(7);
+
+        driverJoystick = new Joystick(0);
+        operatorJoystick = new Joystick(1);
     }
 }

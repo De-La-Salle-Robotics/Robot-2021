@@ -23,7 +23,7 @@ public class RobotMap {
 
     public static Joystick driverJoystick;
     public static Joystick operatorJoystick;
-    static {
+    public static void initialize() {
         leftMaster = new TalonSRX(1);
         leftSlave = new VictorSPX(1);
         rightMaster = new TalonSRX(2);

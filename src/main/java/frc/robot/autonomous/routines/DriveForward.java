@@ -7,22 +7,28 @@ import frc.robot.utils.SensorVals;
 
 public class DriveForward implements IRoutine{
     private int _loops;
+    private boolean _finished;
 
-    public void initialize() { 
+    public void initialize() {
+        /* Initialize variables */
         _loops = 0;
+        _finished = false;
     }
     public void start(SensorVals sensors) {
+        /* Reset variables to initial settings */
         _loops = 0;
+        _finished = false;
     }
     public void onLoop(SensorVals sensors, AutonomousHardware hardware) {
         _loops++;
+        /* Run for two seconds */
         if(_loops < 100) {
             hardware.leftSide.set(ControlMode.PercentOutput, 0.5);
             hardware.rightSide.set(ControlMode.PercentOutput, 0.5);
         }
         else
         {
-            end(hardware);
+            _finished = true; /* We are finished at this point */
         }
     }
     public void end(AutonomousHardware hardware) {
@@ -30,7 +36,7 @@ public class DriveForward implements IRoutine{
         hardware.rightSide.set(ControlMode.PercentOutput, 0);
     }
     public boolean finished() {
-        return _loops > 100; /* run for 2 seconds */
+        return _finished;
     }
 
     public String getName() { return "Drive Forward"; }

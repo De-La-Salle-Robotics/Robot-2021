@@ -27,7 +27,9 @@ public class FortKnox {
 
     private JoystickVals _joysticks;
     private SensorVals _sensors;
-    public FortKnox() {             
+    public FortKnox() {
+        RobotMap.initialize();
+        
         _drivetrain = new Drivetrain(RobotMap.leftMaster, RobotMap.rightMaster);
         _belt = new Belt(RobotMap.belt, RobotMap.shooter);
         _intake = new Intake(RobotMap.intake);

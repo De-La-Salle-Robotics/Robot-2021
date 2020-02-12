@@ -2,6 +2,7 @@ package frc.robot.hardware;
 
 import com.ctre.phoenix.motorcontrol.can.*;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
 
 public class RobotMap {
@@ -12,7 +13,7 @@ public class RobotMap {
     public static BaseMotorController rightSlave;
 
     /* Arm and Collector */
-    public static BaseMotorController arm;
+    public static DoubleSolenoid arm;
     public static BaseMotorController intake;
     /* Conveyor Belt */
     public static BaseMotorController belt;
@@ -29,7 +30,7 @@ public class RobotMap {
         rightMaster = new TalonSRX(2);
         rightSlave = new VictorSPX(2);
 
-        arm = new TalonSRX(3);
+        arm = new DoubleSolenoid(0, 1);
         intake = new VictorSPX(3);
 
         belt = new VictorSPX(4);

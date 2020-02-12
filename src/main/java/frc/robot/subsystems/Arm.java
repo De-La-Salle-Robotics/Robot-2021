@@ -1,30 +1,28 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
-import com.ctre.phoenix.motorcontrol.ControlMode;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 import frc.robot.utils.JoystickVals;
 
 public class Arm {
-    public BaseMotorController arm;
+    private DoubleSolenoid _arm;
+    private Value _armState;
 
-    public Arm(BaseMotorController arm){
-        this.arm = arm;
+    public Arm(DoubleSolenoid arm){
+        _arm = arm;
+
+        _armState = Value.kOff;
     }
 
     public void armControl(JoystickVals joysticks){
-        double armpower = 0;
-
         if (joysticks.armUp){
-            armpower = 0.5;
+            _armState = Value.kReverse;
         }
         else if (joysticks.armDown){
-            armpower = -0.5;
+            _armState = Value.kForward;
         }
-        else {
-            armpower = 0;
-        }
-        arm.set(ControlMode.PercentOutput, armpower);
+        _arm.set(_armState);
     }
 
 }

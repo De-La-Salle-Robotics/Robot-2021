@@ -28,7 +28,7 @@ public class JoystickVals{
     public void getJoystickValues() {
         /* Drive base */
         wheel = _driver.getRawAxis(1);
-        throttle = _driver.getRawAxis(2);
+        throttle = -_driver.getRawAxis(4); /* Throttle is negated */
         /* Shooter */
         shooterFire = _driver.getRawButton(4);
         shooterReload = _driver.getRawButton(1);

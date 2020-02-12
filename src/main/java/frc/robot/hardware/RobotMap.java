@@ -7,10 +7,10 @@ import edu.wpi.first.wpilibj.Joystick;
 
 public class RobotMap {
     /* Drivetrain */
-    public static BaseTalon leftMaster;
-    public static BaseMotorController leftSlave;
-    public static BaseTalon rightMaster;
-    public static BaseMotorController rightSlave;
+    public static TalonSRX leftMaster;
+    public static VictorSPX leftSlave;
+    public static TalonSRX rightMaster;
+    public static VictorSPX rightSlave;
 
     /* Arm and Collector */
     public static DoubleSolenoid arm;
@@ -41,5 +41,12 @@ public class RobotMap {
 
         driverJoystick = new Joystick(0);
         operatorJoystick = new Joystick(1);
+
+        configControllers();
+    }
+
+    private static void configControllers() {
+        LeftDrivetrainConfigs.configSide(leftMaster, leftSlave);
+        RightDrivetrainConfigs.configSide(rightMaster, rightSlave);
     }
 }

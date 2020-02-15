@@ -1,0 +1,32 @@
+package frc.robot.subsystems;
+
+import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
+import frc.robot.utils.JoystickVals;
+import frc.robot.utils.JoystickVals.PCState;
+
+public class Belt{
+    private BaseMotorController belt;
+
+    public Belt(BaseMotorController belt){
+        this.belt = belt;
+    }
+    public void beltControl(JoystickVals joysticks){
+        double beltpower = 0;
+
+        /* This code handles the conveyor belt */
+        if (joysticks.powerCellState == PCState.Suck ||
+            joysticks.powerCellState == PCState.Shoot){
+            beltpower = 0.5;
+        }
+        else if (joysticks.powerCellState == JoystickVals.PCState.Blow){
+            beltpower = -0.5;
+        }
+        else{
+            beltpower = 0;
+        }
+        
+        belt.set(ControlMode.PercentOutput, beltpower); /* Output the conveyor belt */
+    }
+}

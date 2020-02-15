@@ -20,8 +20,8 @@ public class RobotMap {
     public static BaseMotorController belt;
     public static BaseMotorController shooter;
     /* Climber */
-    public static BaseMotorController climb;
-    public static BaseMotorController winch;
+    public static VictorSPX climb;
+    public static VictorSPX winch;
 
     public static Joystick driverJoystick;
     public static Joystick operatorJoystick;
@@ -52,5 +52,6 @@ public class RobotMap {
     private static void configControllers() {
         LeftDrivetrainConfigs.configSide(leftMaster, leftSlave);
         RightDrivetrainConfigs.configSide(rightMaster, rightSlave);
+        HangerConfigs.configHanger(winch, climb);
     }
 }

@@ -16,8 +16,8 @@ public class Drivetrain {
     }
 
     public void operate(JoystickVals joysticks) {
-        double leftSide = joysticks.throttle - joysticks.wheel;
-        double rightSide = joysticks.throttle + joysticks.wheel;
+        double leftSide = joysticks.throttle + joysticks.wheel;
+        double rightSide = joysticks.throttle - joysticks.wheel;
 
         _leftMaster.set(ControlMode.PercentOutput, leftSide);
         _rightMaster.set(ControlMode.PercentOutput, rightSide);

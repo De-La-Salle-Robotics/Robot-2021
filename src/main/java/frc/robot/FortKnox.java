@@ -18,6 +18,7 @@ public class FortKnox {
 
     private Drivetrain _drivetrain;
     private Belt _belt;
+    private Shooter _shooter;
     private Intake _intake;
     private Climb _climb;
     private Arm _arm;
@@ -31,7 +32,8 @@ public class FortKnox {
         RobotMap.initialize();
         
         _drivetrain = new Drivetrain(RobotMap.leftMaster, RobotMap.rightMaster);
-        _belt = new Belt(RobotMap.belt, RobotMap.shooter);
+        _belt = new Belt(RobotMap.belt);
+        _shooter = new Shooter(RobotMap.shooter);
         _intake = new Intake(RobotMap.intake);
         _climb = new Climb(RobotMap.climb);
         _arm = new Arm(RobotMap.arm);
@@ -42,7 +44,7 @@ public class FortKnox {
                                             RobotMap.shooter);
         _autoManager = new AutonomousManager(_autoHardware);
     
-        _joysticks = new JoystickVals(RobotMap.driverJoystick);
+        _joysticks = new JoystickVals(RobotMap.driverJoystick, RobotMap.operatorJoystick);
         _sensors = new SensorVals(RobotMap.leftMaster, RobotMap.rightMaster);
 
         _currentState = FortKnoxState.Disabled;

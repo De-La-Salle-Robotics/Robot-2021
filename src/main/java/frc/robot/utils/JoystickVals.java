@@ -3,49 +3,93 @@ package frc.robot.utils;
 import edu.wpi.first.wpilibj.Joystick;
 
 public class JoystickVals{
+    public enum PCState {
+        WaitUp,
+        WaitDown,
+        Suck,
+        Blow,
+        Shoot,
+    }
+    public enum HangState {
+        Deploy,
+        Retract,
+        Hang,
+        Nothing,
+    }
+    public enum AutonState {
+        NextAuto,
+        PreviousAuto,
+        AutoChanged,
+        ButtonReleased,
+    }
+
     public double wheel;
     public double throttle;
-    public boolean shooterFire;
-    public boolean shooterReload;
-    public boolean collectorSuck;
-    public boolean collectorBlow;
-    public boolean in;
-    public boolean out;
-    public boolean raise;
-    public boolean lower;
-    public boolean armUp;
-    public boolean armDown;
-    public boolean winchDown;
 
-    public boolean nextRoutine;
-    public boolean previousRoutine;
+    public PCState powerCellState;
+    public HangState hanger;
+    public AutonState routine;
     
     private Joystick _driver;
-    public JoystickVals (Joystick driver) {
-        this._driver = driver;
+    private Joystick _operator;
+    public JoystickVals (Joystick driver, Joystick operator) {
+        _driver = driver;
+        _operator = operator;
 
+        /* Initialize states */
+        powerCellState = PCState.WaitUp;
+        hanger = HangState.Nothing;
+        routine = AutonState.AutoChanged;
     }
     public void getJoystickValues() {
         /* Drive base */
         wheel = _driver.getRawAxis(1);
         throttle = -_driver.getRawAxis(4); /* Throttle is negated */
-        /* Shooter */
-        shooterFire = _driver.getRawButton(4);
-        shooterReload = _driver.getRawButton(1);
-        /* Collector */
-        collectorSuck = _driver.getRawButton(2);
-        collectorBlow = _driver.getRawButton(3);
-        in = _driver.getRawButton(5);
-        out = _driver.getRawButton(6);
-        /* Climber */
-        raise = _driver.getRawButton(7);
-        lower = _driver.getRawButton(8);
-        winchDown = _driver.getRawButton(11);
-        /* Arm */
-        armUp = _driver.getRawButton(9);
-        armDown = _driver.getRawButton(10);
+        
+        /* If we press suck, go into suck */
+        if (_operator.getRawButton(1)) {
+            powerCellState = PCState.Suck;
+        /* If we press blow, go into blow */
+        } else if (_operator.getRawButton(2)) {
+            powerCellState = PCState.Blow;
+        /* If we press shoot, go into shoot */
+        } else if (_operator.getRawButton(3)) {
+            powerCellState = PCState.Shoot;
+        /* If we press arm up, go into waitup */
+        } else if (_operator.getRawButton(4)) {
+            powerCellState = PCState.WaitUp;
+        /* If we didn't press anything, go into wait based on last state */
+        } else {
+            /* If we were last sucking or waiting down, stay down */
+            if(powerCellState == PCState.Suck || 
+               powerCellState == PCState.WaitDown) {
+                powerCellState = PCState.WaitDown;
+            /* Otherwise keep the arm up */
+            } else {
+                powerCellState = PCState.WaitUp;
+            }
+        }
 
-        nextRoutine = _driver.getPOV() == 90;
-        previousRoutine = _driver.getPOV() == 270;
+        /* If we press deploy, start to deploy */
+        if(_operator.getRawButton(4)) {
+            hanger = HangState.Deploy;
+        /* If we press retract, go into retract */
+        } else if(_operator.getRawButton(5)) {
+            hanger = HangState.Retract;
+        /* If we press hang, go into hang */
+        } else if(_operator.getRawButton(6)) {
+            hanger = HangState.Hang;
+        /* Otherwise we do nothing */
+        } else {
+            hanger = HangState.Nothing;
+        }
+
+        if(_driver.getPOV() == 90) {
+            routine = AutonState.NextAuto;
+        } else if (_driver.getPOV() == 270) {
+            routine = AutonState.PreviousAuto;
+        } else if (_driver.getPOV() == -1) {
+            routine = AutonState.ButtonReleased;
+        }
     }
 } 

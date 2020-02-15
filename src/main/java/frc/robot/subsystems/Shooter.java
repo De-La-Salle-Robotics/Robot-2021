@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 
 import frc.robot.utils.JoystickVals;
+import frc.robot.utils.JoystickVals.PCState;
 
 public class Shooter {
     public BaseMotorController shooter;
@@ -15,10 +16,8 @@ public class Shooter {
     public void shooterControl(JoystickVals joysticks){
         double shooterpower = 0;
         
-        if (joysticks.shooterFire){
+        if (joysticks.powerCellState == PCState.Shoot){
             shooterpower = 0.5;
-        } else if (joysticks.shooterReload){
-            shooterpower = -0.5;
         } else {
             shooterpower = 0; 
         }

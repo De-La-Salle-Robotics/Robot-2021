@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.can.*;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
+import com.ctre.phoenix.CANifier;
 
 public class RobotMap {
     /* Drivetrain */
@@ -24,6 +25,9 @@ public class RobotMap {
 
     public static Joystick driverJoystick;
     public static Joystick operatorJoystick;
+
+    public static final CANifier can1 = new CANifier(0);
+
     public static void initialize() {
         leftMaster = new TalonSRX(1);
         leftSlave = new VictorSPX(1);

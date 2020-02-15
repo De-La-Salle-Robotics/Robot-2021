@@ -2,6 +2,7 @@ package frc.robot.autonomous;
 
 import frc.robot.autonomous.routines.*;
 import frc.robot.utils.*;
+import frc.robot.utils.JoystickVals.AutonState;
 
 public class AutonomousManager {
     private final int TOTAL_ROUTINES = 1;
@@ -35,8 +36,14 @@ public class AutonomousManager {
     }
 
     public void updateRoutines(JoystickVals joysticks) {
-        if(joysticks.nextRoutine) nextRoutine();
-        if(joysticks.previousRoutine) previousRoutine();
+        if(joysticks.routine == AutonState.NextAuto) {
+            nextRoutine();
+            joysticks.routine = AutonState.AutoChanged;
+        } 
+        if(joysticks.routine == AutonState.PreviousAuto) { 
+            previousRoutine();
+            joysticks.routine = AutonState.AutoChanged;
+        }
         selectRoutine(_routineVal);
     }
 

@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 
 import frc.robot.utils.JoystickVals;
+import frc.robot.utils.JoystickVals.HangState;
 
 public class Winch {
     private BaseMotorController _winch;
@@ -15,7 +16,7 @@ public class Winch {
     public void HookControl(JoystickVals joysticks){
         double winchPower = 0;
 
-        if (joysticks.winchDown){
+        if (joysticks.hanger == HangState.Hang){
             winchPower = 1.0;
         }
         else{

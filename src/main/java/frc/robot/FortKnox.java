@@ -64,6 +64,7 @@ public class FortKnox {
                 /* Listen to joysticks and run our mechanisms */
                 _belt.beltControl(_joysticks);
                 _intake.intakeControl(_joysticks);
+                _shooter.shooterControl(_joysticks);
                 _climb.climbControl(_joysticks);
                 _drivetrain.operate(_joysticks);
                 _arm.armControl(_joysticks);

@@ -46,17 +46,20 @@ public class JoystickVals{
         wheel = _driver.getRawAxis(1);
         throttle = -_driver.getRawAxis(4); /* Throttle is negated */
         
+        /* If we press arm down, go down */
+        if(_operator.getRawButton(4)) {
+            powerCellState = PCState.WaitDown;
         /* If we press suck, go into suck */
-        if (_operator.getRawButton(1)) {
+        } else if (_operator.getRawButton(7)) {
             powerCellState = PCState.Suck;
         /* If we press blow, go into blow */
-        } else if (_operator.getRawButton(2)) {
+        } else if (_operator.getRawButton(6)) {
             powerCellState = PCState.Blow;
         /* If we press shoot, go into shoot */
-        } else if (_operator.getRawButton(3)) {
+        } else if (_operator.getRawButton(8)) {
             powerCellState = PCState.Shoot;
         /* If we press arm up, go into waitup */
-        } else if (_operator.getRawButton(4)) {
+        } else if (_operator.getRawButton(2)) {
             powerCellState = PCState.WaitUp;
         /* If we didn't press anything, go into wait based on last state */
         } else {
@@ -71,13 +74,13 @@ public class JoystickVals{
         }
 
         /* If we press deploy, start to deploy */
-        if(_operator.getRawButton(4)) {
+        if(_driver.getRawButton(1)) {
             hanger = HangState.Deploy;
         /* If we press retract, go into retract */
-        } else if(_operator.getRawButton(5)) {
+        } else if(_driver.getRawButton(2)) {
             hanger = HangState.Retract;
         /* If we press hang, go into hang */
-        } else if(_operator.getRawButton(6)) {
+        } else if(_driver.getRawButton(3)) {
             hanger = HangState.Hang;
         /* Otherwise we do nothing */
         } else {

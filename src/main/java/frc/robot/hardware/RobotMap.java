@@ -35,13 +35,16 @@ public class RobotMap {
         rightSlave = new VictorSPX(2);
 
         arm = new DoubleSolenoid(0, 1);
-        intake = new VictorSPX(3);
+        intake = new VictorSPX(6);
 
         belt = new VictorSPX(4);
         shooter = new VictorSPX(5);
 
-        climb = new VictorSPX(6);
-        winch = new VictorSPX(7);
+        belt.setInverted(true);
+        shooter.setInverted(true);
+
+        climb = new VictorSPX(7);
+        winch = new VictorSPX(3);
 
         driverJoystick = new Joystick(0);
         operatorJoystick = new Joystick(1);

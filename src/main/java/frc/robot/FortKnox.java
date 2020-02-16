@@ -1,10 +1,9 @@
 package frc.robot;
 
-import frc.robot.autonomous.AutonomousHardware;
 import frc.robot.autonomous.AutonomousManager;
 import frc.robot.hardware.RobotMap;
 import frc.robot.subsystems.*;
-import frc.robot.utils.JoystickVals;
+import frc.robot.utils.RobotState;
 import frc.robot.utils.SensorVals; 
 
 public class FortKnox {
@@ -23,10 +22,9 @@ public class FortKnox {
     private Climb _climb;
     private Arm _arm;
 
-    private AutonomousHardware _autoHardware;
     private AutonomousManager _autoManager;
 
-    private JoystickVals _joysticks;
+    private RobotState _robot;
     private SensorVals _sensors;
     public FortKnox() {
         RobotMap.initialize();
@@ -37,37 +35,33 @@ public class FortKnox {
         _intake = new Intake(RobotMap.intake);
         _climb = new Climb(RobotMap.climb);
         _arm = new Arm(RobotMap.arm);
-
-        _autoHardware = new AutonomousHardware(RobotMap.leftMaster, 
-                                            RobotMap.rightMaster, 
-                                            RobotMap.belt, 
-                                            RobotMap.shooter);
-        _autoManager = new AutonomousManager(_autoHardware);
+        
+        _autoManager = new AutonomousManager();
     
-        _joysticks = new JoystickVals(RobotMap.driverJoystick, RobotMap.operatorJoystick);
+        _robot = new RobotState(RobotMap.driverJoystick, RobotMap.operatorJoystick);
         _sensors = new SensorVals(RobotMap.leftMaster, RobotMap.rightMaster);
 
         _currentState = FortKnoxState.Disabled;
     }
     public void periodicTasks(){
-        _joysticks.getJoystickValues();
+        _robot.getJoystickValues();
         _sensors.getSensorValues();
 
         switch(_currentState)
         {
             case Autonomous:
                 /* Run autonomous stuff here */
-                _autoManager.runRoutine(_sensors);
+                _autoManager.runRoutine(_sensors, _robot);
                 break;
             case Teleoperated:
             case Disabled:
                 /* Listen to joysticks and run our mechanisms */
-                _belt.beltControl(_joysticks);
-                _intake.intakeControl(_joysticks);
-                _climb.climbControl(_joysticks);
-                _drivetrain.operate(_joysticks);
-                _arm.armControl(_joysticks);
-                _autoManager.updateRoutines(_joysticks);
+                _belt.beltControl(_robot);
+                _intake.intakeControl(_robot);
+                _climb.climbControl(_robot);
+                _drivetrain.operate(_robot);
+                _arm.armControl(_robot);
+                _autoManager.updateRoutines(_robot);
                 break;
             case Test:
                 /* Test does its own stuff */

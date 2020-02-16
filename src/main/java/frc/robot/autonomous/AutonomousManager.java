@@ -2,12 +2,11 @@ package frc.robot.autonomous;
 
 import frc.robot.autonomous.routines.*;
 import frc.robot.utils.*;
-import frc.robot.utils.JoystickVals.AutonState;
+import frc.robot.utils.RobotState.AutonState;
 
 public class AutonomousManager {
     private final int TOTAL_ROUTINES = 1;
     private IRoutine _currentRoutine;
-    private AutonomousHardware _hardware;
 
     private int _routineVal;
     private boolean _startedRoutine;
@@ -29,13 +28,12 @@ public class AutonomousManager {
         _currentRoutine.initialize();
     }
 
-    public AutonomousManager(AutonomousHardware hardware) {
-        _hardware = hardware;
+    public AutonomousManager() {
         _startedRoutine = false;
         _finished = false;
     }
 
-    public void updateRoutines(JoystickVals joysticks) {
+    public void updateRoutines(RobotState joysticks) {
         if(joysticks.routine == AutonState.NextAuto) {
             nextRoutine();
             joysticks.routine = AutonState.AutoChanged;
@@ -47,7 +45,7 @@ public class AutonomousManager {
         selectRoutine(_routineVal);
     }
 
-    public void runRoutine(SensorVals sensors) {
+    public void runRoutine(SensorVals sensors, RobotState robot) {
         if(_finished == true) {
             /* Do nothing */
         }else if(_startedRoutine == false) {
@@ -56,11 +54,11 @@ public class AutonomousManager {
             _startedRoutine = true;
         } else {
             /* Update the routine */
-            _currentRoutine.onLoop(sensors, _hardware);
+            _currentRoutine.onLoop(sensors, robot);
         }
         if(_currentRoutine.finished()) {
             _finished = true;
-            _currentRoutine.end(_hardware);
+            _currentRoutine.end(robot);
         }
     }
 }

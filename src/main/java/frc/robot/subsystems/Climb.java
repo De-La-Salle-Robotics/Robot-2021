@@ -2,8 +2,8 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
-import frc.robot.utils.JoystickVals;
-import frc.robot.utils.JoystickVals.HangState;
+import frc.robot.utils.RobotState;
+import frc.robot.utils.RobotState.HangState;
 
 public class Climb {
     public BaseMotorController climb;
@@ -11,7 +11,7 @@ public class Climb {
     public Climb(BaseMotorController climb) {
         this.climb = climb;
     }
-public void  climbControl(JoystickVals joysticks){
+public void  climbControl(RobotState joysticks){
     double climbpower = 0;
 
     if(joysticks.hanger == HangState.Deploy){

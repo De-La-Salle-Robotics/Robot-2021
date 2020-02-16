@@ -3,8 +3,8 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
-import frc.robot.utils.JoystickVals;
-import frc.robot.utils.JoystickVals.PCState;
+import frc.robot.utils.RobotState;
+import frc.robot.utils.RobotState.PCState;
 
 public class Belt{
     private BaseMotorController belt;
@@ -12,7 +12,7 @@ public class Belt{
     public Belt(BaseMotorController belt){
         this.belt = belt;
     }
-    public void beltControl(JoystickVals joysticks){
+    public void beltControl(RobotState joysticks){
         double beltpower = 0;
 
         /* This code handles the conveyor belt */
@@ -20,7 +20,7 @@ public class Belt{
             joysticks.powerCellState == PCState.Shoot){
             beltpower = 0.5;
         }
-        else if (joysticks.powerCellState == JoystickVals.PCState.Blow){
+        else if (joysticks.powerCellState == RobotState.PCState.Blow){
             beltpower = -0.5;
         }
         else{

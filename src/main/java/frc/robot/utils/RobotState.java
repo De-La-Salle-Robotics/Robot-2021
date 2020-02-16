@@ -1,8 +1,10 @@
 package frc.robot.utils;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import edu.wpi.first.wpilibj.Joystick;
 
-public class JoystickVals{
+public class RobotState{
     public enum PCState {
         WaitUp,
         WaitDown,
@@ -22,29 +24,38 @@ public class JoystickVals{
         AutoChanged,
         ButtonReleased,
     }
-
-    public double wheel;
-    public double throttle;
-
+    public class DrivetrainState {
+        public ControlMode leftDriveMode;
+        public ControlMode rightDriveMode;
+        public double leftSide;
+        public double rightSide;
+    };
+    
+    public DrivetrainState driveTrainState;
     public PCState powerCellState;
     public HangState hanger;
     public AutonState routine;
     
     private Joystick _driver;
     private Joystick _operator;
-    public JoystickVals (Joystick driver, Joystick operator) {
+    public RobotState (Joystick driver, Joystick operator) {
         _driver = driver;
         _operator = operator;
 
         /* Initialize states */
+        driveTrainState = new DrivetrainState();
         powerCellState = PCState.WaitUp;
         hanger = HangState.Nothing;
         routine = AutonState.AutoChanged;
     }
     public void getJoystickValues() {
         /* Drive base */
-        wheel = _driver.getRawAxis(1);
-        throttle = -_driver.getRawAxis(4); /* Throttle is negated */
+        double throt = _driver.getRawAxis(1);
+        double wheel = -_driver.getRawAxis(4); /* Throttle is negated */
+        driveTrainState.leftDriveMode = ControlMode.PercentOutput;
+        driveTrainState.rightDriveMode = ControlMode.PercentOutput;
+        driveTrainState.leftSide = throt + wheel;
+        driveTrainState.rightSide = throt - wheel;
         
         /* If we press suck, go into suck */
         if (_operator.getRawButton(1)) {

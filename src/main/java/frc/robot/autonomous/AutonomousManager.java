@@ -61,4 +61,8 @@ public class AutonomousManager {
             _currentRoutine.end(robot);
         }
     }
+
+    public String getAutoName() {
+        return _currentRoutine.getName();
+    }
 }

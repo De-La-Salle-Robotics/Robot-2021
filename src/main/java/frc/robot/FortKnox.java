@@ -1,6 +1,7 @@
 package frc.robot;
 
 import frc.robot.autonomous.AutonomousManager;
+import frc.robot.dashboard.MainDashboard;
 import frc.robot.hardware.RobotMap;
 import frc.robot.subsystems.*;
 import frc.robot.utils.RobotState;
@@ -24,6 +25,8 @@ public class FortKnox {
 
     private AutonomousManager _autoManager;
 
+    private MainDashboard _dashboard;
+
     private RobotState _robot;
     private SensorVals _sensors;
     public FortKnox() {
@@ -35,13 +38,16 @@ public class FortKnox {
         _intake = new Intake(RobotMap.intake);
         _climb = new Climb(RobotMap.climb);
         _arm = new Arm(RobotMap.arm);
-        
-        _autoManager = new AutonomousManager();
     
         _robot = new RobotState(RobotMap.driverJoystick, RobotMap.operatorJoystick);
-        _sensors = new SensorVals(RobotMap.leftMaster, RobotMap.rightMaster);
+        _sensors = new SensorVals(RobotMap.leftMaster, RobotMap.rightMaster, RobotMap.pidgey);
+        
+        _autoManager = new AutonomousManager();
+
+        _dashboard = new MainDashboard(_sensors, _robot, _autoManager);
 
         _currentState = FortKnoxState.Disabled;
+        _dashboard.start();
     }
     public void periodicTasks(){
         _robot.getJoystickValues();
@@ -51,14 +57,16 @@ public class FortKnox {
         {
             case Autonomous:
                 /* Run autonomous stuff here */
+                /* _robot state will be overwritten by auto */
                 _autoManager.runRoutine(_sensors, _robot);
-                break;
+                /* Fall-through */
             case Teleoperated:
             case Disabled:
                 /* Listen to joysticks and run our mechanisms */
                 _belt.beltControl(_robot);
                 _intake.intakeControl(_robot);
                 _climb.climbControl(_robot);
+                _shooter.shooterControl(_robot);
                 _drivetrain.operate(_robot);
                 _arm.armControl(_robot);
                 _autoManager.updateRoutines(_robot);

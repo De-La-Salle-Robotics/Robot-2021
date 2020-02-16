@@ -29,6 +29,11 @@ public class RobotState{
         public ControlMode rightDriveMode;
         public double leftSide;
         public double rightSide;
+
+        @Override
+        public String toString() {
+            return leftDriveMode.toString() + "  " + rightDriveMode.toString();
+        }
     };
     
     public DrivetrainState driveTrainState;

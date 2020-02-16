@@ -1,6 +1,7 @@
 package frc.robot.hardware;
 
 import com.ctre.phoenix.motorcontrol.can.*;
+import com.ctre.phoenix.sensors.PigeonIMU;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
@@ -12,6 +13,7 @@ public class RobotMap {
     public static VictorSPX leftSlave;
     public static TalonSRX rightMaster;
     public static VictorSPX rightSlave;
+    public static PigeonIMU pidgey;
 
     /* Arm and Collector */
     public static DoubleSolenoid arm;
@@ -33,6 +35,7 @@ public class RobotMap {
         leftSlave = new VictorSPX(1);
         rightMaster = new TalonSRX(2);
         rightSlave = new VictorSPX(2);
+        pidgey = new PigeonIMU(1);
 
         arm = new DoubleSolenoid(0, 1);
         intake = new VictorSPX(3);

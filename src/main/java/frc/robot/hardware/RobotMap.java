@@ -28,7 +28,7 @@ public class RobotMap {
     public static Joystick driverJoystick;
     public static Joystick operatorJoystick;
 
-    public static final CANifier can1 = new CANifier(0);
+    public static CANifier canifier;
 
     public static void initialize() {
         leftMaster = new TalonSRX(1);
@@ -48,6 +48,8 @@ public class RobotMap {
 
         driverJoystick = new Joystick(0);
         operatorJoystick = new Joystick(1);
+
+        canifier = new CANifier(0);
 
         configControllers();
     }

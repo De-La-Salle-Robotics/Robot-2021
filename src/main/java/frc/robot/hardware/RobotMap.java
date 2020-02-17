@@ -19,8 +19,8 @@ public class RobotMap {
     public static DoubleSolenoid arm;
     public static BaseMotorController intake;
     /* Conveyor Belt */
-    public static BaseMotorController belt;
-    public static BaseMotorController shooter;
+    public static VictorSPX belt;
+    public static VictorSPX shooter;
     /* Climber */
     public static VictorSPX climb;
     public static VictorSPX winch;
@@ -58,5 +58,6 @@ public class RobotMap {
         LeftDrivetrainConfigs.configSide(leftMaster, leftSlave);
         RightDrivetrainConfigs.configSide(rightMaster, rightSlave);
         HangerConfigs.configHanger(winch, climb);
+        ConveyorConfigs.configConveyor(belt, shooter);
     }
 }

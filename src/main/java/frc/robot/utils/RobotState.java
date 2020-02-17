@@ -29,6 +29,7 @@ public class RobotState{
         public ControlMode rightDriveMode;
         public double leftSide;
         public double rightSide;
+        public boolean auxRunning;
 
         @Override
         public String toString() {

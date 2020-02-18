@@ -1,9 +1,8 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.BaseTalon;
 
-import frc.robot.utils.JoystickVals;
+import frc.robot.utils.RobotState;
 
 public class Drivetrain {
     private BaseTalon _leftMaster;
@@ -15,11 +14,8 @@ public class Drivetrain {
 
     }
 
-    public void operate(JoystickVals joysticks) {
-        double leftSide = joysticks.throttle + joysticks.wheel;
-        double rightSide = joysticks.throttle - joysticks.wheel;
-
-        _leftMaster.set(ControlMode.PercentOutput, leftSide);
-        _rightMaster.set(ControlMode.PercentOutput, rightSide);
+    public void operate(RobotState joysticks) {
+        _leftMaster.set(joysticks.driveTrainState.leftDriveMode, joysticks.driveTrainState.leftSide);
+        _rightMaster.set(joysticks.driveTrainState.rightDriveMode, joysticks.driveTrainState.rightSide);
     }
 }

@@ -1,6 +1,7 @@
 package frc.robot.hardware;
 
 import com.ctre.phoenix.motorcontrol.can.*;
+import com.ctre.phoenix.sensors.PigeonIMU;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
@@ -12,13 +13,14 @@ public class RobotMap {
     public static VictorSPX leftSlave;
     public static TalonSRX rightMaster;
     public static VictorSPX rightSlave;
+    public static PigeonIMU pidgey;
 
     /* Arm and Collector */
     public static DoubleSolenoid arm;
     public static BaseMotorController intake;
     /* Conveyor Belt */
-    public static BaseMotorController belt;
-    public static BaseMotorController shooter;
+    public static VictorSPX belt;
+    public static VictorSPX shooter;
     /* Climber */
     public static VictorSPX climb;
     public static VictorSPX winch;
@@ -26,13 +28,14 @@ public class RobotMap {
     public static Joystick driverJoystick;
     public static Joystick operatorJoystick;
 
-    public static final CANifier can1 = new CANifier(0);
+    public static CANifier canifier;
 
     public static void initialize() {
         leftMaster = new TalonSRX(1);
         leftSlave = new VictorSPX(1);
         rightMaster = new TalonSRX(2);
         rightSlave = new VictorSPX(2);
+        pidgey = new PigeonIMU(1);
 
         arm = new DoubleSolenoid(0, 1);
         intake = new VictorSPX(6);
@@ -49,6 +52,8 @@ public class RobotMap {
         driverJoystick = new Joystick(0);
         operatorJoystick = new Joystick(1);
 
+        canifier = new CANifier(0);
+
         configControllers();
     }
 
@@ -56,5 +61,6 @@ public class RobotMap {
         LeftDrivetrainConfigs.configSide(leftMaster, leftSlave);
         RightDrivetrainConfigs.configSide(rightMaster, rightSlave);
         HangerConfigs.configHanger(winch, climb);
+        ConveyorConfigs.configConveyor(belt, shooter);
     }
 }

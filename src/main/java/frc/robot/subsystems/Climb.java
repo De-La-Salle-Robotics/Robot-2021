@@ -23,5 +23,4 @@ public void  climbControl(RobotState joysticks){
     }
     climb.set(ControlMode.PercentOutput, climbpower);
     }
-
 }

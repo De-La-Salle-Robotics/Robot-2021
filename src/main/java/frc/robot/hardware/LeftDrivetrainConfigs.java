@@ -1,6 +1,7 @@
 package frc.robot.hardware;
 
 import com.ctre.phoenix.motorcontrol.InvertType;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
@@ -12,6 +13,7 @@ public class LeftDrivetrainConfigs {
         TalonSRXConfiguration masterConfigs = new TalonSRXConfiguration();
 
         master.configAllSettings(masterConfigs);
+        master.setNeutralMode(NeutralMode.Brake);
 
         VictorSPXConfiguration slaveConfigs = new VictorSPXConfiguration();
 
@@ -19,5 +21,6 @@ public class LeftDrivetrainConfigs {
 
         slave.follow(master);
         slave.setInverted(InvertType.FollowMaster);
+        slave.setNeutralMode(NeutralMode.Brake);
     }
 }

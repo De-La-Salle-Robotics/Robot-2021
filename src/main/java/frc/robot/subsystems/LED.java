@@ -20,7 +20,7 @@ public class LED {
         double redVal;
         double greenVal;
         double blueVal;
-    };
+    }
 
     private CANifier ledController;
 

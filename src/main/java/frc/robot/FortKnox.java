@@ -1,5 +1,7 @@
 package frc.robot;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
 import frc.robot.autonomous.AutonomousManager;
 import frc.robot.dashboard.MainDashboard;
 import frc.robot.hardware.RobotMap;
@@ -31,6 +33,8 @@ public class FortKnox {
     private SensorVals _sensors;
     public FortKnox() {
         RobotMap.initialize();
+
+        CameraServer.getInstance().startAutomaticCapture();
         
         _drivetrain = new Drivetrain(RobotMap.leftMaster, RobotMap.rightMaster);
         _belt = new Belt(RobotMap.belt);

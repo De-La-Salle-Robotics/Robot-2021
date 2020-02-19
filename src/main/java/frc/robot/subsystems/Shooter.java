@@ -17,7 +17,7 @@ public class Shooter {
         double shooterpower = 0;
         
         if (joysticks.powerCellState == PCState.Shoot){
-            shooterpower = 0.5;
+            shooterpower = 1;
         } else {
             shooterpower = 0; 
         }

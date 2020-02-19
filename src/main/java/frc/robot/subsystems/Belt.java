@@ -18,10 +18,10 @@ public class Belt{
         /* This code handles the conveyor belt */
         if (joysticks.powerCellState == PCState.Suck ||
             joysticks.powerCellState == PCState.Shoot){
-            beltpower = 0.5;
+            beltpower = 1;
         }
         else if (joysticks.powerCellState == RobotState.PCState.Blow){
-            beltpower = -0.5;
+            beltpower = -0.8;
         }
         else{
             beltpower = 0;

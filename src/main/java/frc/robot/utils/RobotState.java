@@ -56,8 +56,8 @@ public class RobotState{
     }
     public void getJoystickValues() {
         /* Drive base */
-        double throt = _driver.getRawAxis(1);
-        double wheel = -_driver.getRawAxis(4); /* Throttle is negated */
+        double throt = -_driver.getRawAxis(1);
+        double wheel = _driver.getRawAxis(4) * 0.5; /* Throttle is negated */
         driveTrainState.leftDriveMode = ControlMode.PercentOutput;
         driveTrainState.rightDriveMode = ControlMode.PercentOutput;
         driveTrainState.leftSide = throt + wheel;
@@ -65,6 +65,7 @@ public class RobotState{
         
         /* If we press arm down, go down */
         if(_operator.getRawButton(4)) {
+            System.out.println("Pressed Wait Down");
             powerCellState = PCState.WaitDown;
         /* If we press suck, go into suck */
         } else if (_operator.getRawButton(7)) {

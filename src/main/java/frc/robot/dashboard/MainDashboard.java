@@ -29,6 +29,8 @@ public class MainDashboard extends Thread {
 
             /* Display selected auto name */
             SmartDashboard.putString("Auton", _autoManager.getAutoName());
+            SmartDashboard.putString("Auton Info", _autoManager.telemetry());
+            SmartDashboard.putString("Auto State", _robotState.routine.toString());
 
             /* Display Robot States */
             SmartDashboard.putString("Robot State", _robotState.powerCellState.toString());
@@ -37,7 +39,7 @@ public class MainDashboard extends Thread {
 
             /* Display sensor information */
             SmartDashboard.putNumber("Left Side Distance", _sensors.leftSideDist);
-            SmartDashboard.putNumber("Right Side Distance", _sensors.rightSideDist);
+            SmartDashboard.putNumber("Right Side Distance", _sensors.totalRobotDist);
             SmartDashboard.putString("Pigeon State", _sensors.pidgeyState.toString());
             SmartDashboard.putNumber("Direction", _sensors.heading);
 

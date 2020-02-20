@@ -10,8 +10,9 @@ public class SensorVals {
     private PigeonIMU _pidgey;
 
     public double leftSideDist;
-    public double rightSideDist;
+    public double totalRobotDist;
     public double heading;
+    public double rawHeading;
     public PigeonState pidgeyState;
 
     public SensorVals(BaseTalon leftMaster, BaseTalon rightMaster, PigeonIMU pigeon) {
@@ -22,11 +23,12 @@ public class SensorVals {
 
     public void getSensorValues() {
         leftSideDist = _leftTalon.getSelectedSensorPosition();
-        rightSideDist = _rightTalon.getSelectedSensorPosition();
+        totalRobotDist = _rightTalon.getSelectedSensorPosition();
 
         double[] ypr = new double[3];
         _pidgey.getYawPitchRoll(ypr);
         heading = ypr[0]; /* This is yaw */
+        rawHeading = heading * (8192.0 / 360.0);
         pidgeyState = _pidgey.getState();
     }
 }

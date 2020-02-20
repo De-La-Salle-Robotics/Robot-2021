@@ -13,7 +13,9 @@ public class LeftDrivetrainConfigs {
         TalonSRXConfiguration masterConfigs = new TalonSRXConfiguration();
 
         master.configAllSettings(masterConfigs);
+        master.setInverted(false);
         master.setNeutralMode(NeutralMode.Brake);
+        master.setSensorPhase(true);
 
         VictorSPXConfiguration slaveConfigs = new VictorSPXConfiguration();
 

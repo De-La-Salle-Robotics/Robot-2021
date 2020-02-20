@@ -10,4 +10,5 @@ public interface IRoutine {
     public void end(RobotState robot);
     public boolean finished();
     public String getName();
+    public String telemetry();
 }

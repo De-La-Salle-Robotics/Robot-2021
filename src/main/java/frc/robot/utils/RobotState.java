@@ -24,23 +24,34 @@ public class RobotState{
         AutoChanged,
         ButtonReleased,
     }
-    public class DrivetrainState {
-        public ControlMode leftDriveMode;
-        public ControlMode rightDriveMode;
+    public enum DriveTrainState {
+        PercentOut,
+        Position,
+        MotionMagic,
+    }
+    public class DTStruct {
+        public DriveTrainState state;
         public double leftSide;
         public double rightSide;
-        public boolean auxRunning;
 
         @Override
         public String toString() {
-            return leftDriveMode.toString() + "  " + rightDriveMode.toString();
+            return state.toString() + "  " + leftSide + " " + rightSide;
+        }
+
+        public void set(DriveTrainState state, double left, double right) {
+            this.state = state;
+            leftSide = left;
+            rightSide = right;
         }
     };
     
-    public DrivetrainState driveTrainState;
+    public DTStruct driveTrainState;
     public PCState powerCellState;
     public HangState hanger;
     public AutonState routine;
+
+    public boolean clearSensors;
     
     private Joystick _driver;
     private Joystick _operator;
@@ -49,19 +60,18 @@ public class RobotState{
         _operator = operator;
 
         /* Initialize states */
-        driveTrainState = new DrivetrainState();
+        driveTrainState = new DTStruct();
         powerCellState = PCState.WaitUp;
         hanger = HangState.Nothing;
         routine = AutonState.AutoChanged;
+
+        clearSensors = false;
     }
     public void getJoystickValues() {
         /* Drive base */
         double throt = -_driver.getRawAxis(1);
         double wheel = _driver.getRawAxis(4) * 0.5; /* Throttle is negated */
-        driveTrainState.leftDriveMode = ControlMode.PercentOutput;
-        driveTrainState.rightDriveMode = ControlMode.PercentOutput;
-        driveTrainState.leftSide = throt + wheel;
-        driveTrainState.rightSide = throt - wheel;
+        driveTrainState.set(DriveTrainState.PercentOut, throt + wheel, throt - wheel);
         
         /* If we press arm down, go down */
         if(_operator.getRawButton(4)) {
@@ -105,12 +115,20 @@ public class RobotState{
             hanger = HangState.Nothing;
         }
 
-        if(_driver.getPOV() == 90) {
-            routine = AutonState.NextAuto;
-        } else if (_driver.getPOV() == 270) {
-            routine = AutonState.PreviousAuto;
+        if(routine != AutonState.AutoChanged) {
+            if(_driver.getPOV() == 90) {
+                routine = AutonState.NextAuto;
+            } else if (_driver.getPOV() == 270) {
+                routine = AutonState.PreviousAuto;
+            }
         } else if (_driver.getPOV() == -1) {
             routine = AutonState.ButtonReleased;
+        }
+
+        if(_driver.getPOV() == 180) {
+            clearSensors = true;
+        } else {
+            clearSensors = false;
         }
     }
 } 

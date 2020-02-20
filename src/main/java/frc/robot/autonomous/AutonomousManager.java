@@ -5,7 +5,7 @@ import frc.robot.utils.*;
 import frc.robot.utils.RobotState.AutonState;
 
 public class AutonomousManager {
-    private final int TOTAL_ROUTINES = 1;
+    private final int TOTAL_ROUTINES = 4;
     private IRoutine _currentRoutine;
 
     private int _routineVal;
@@ -23,7 +23,10 @@ public class AutonomousManager {
     private void selectRoutine(int val) {
         _routineVal = val;
         switch(val) {
-            case 0: _currentRoutine = new DriveForward();
+            case 0: _currentRoutine = new DriveForward(); break;
+            case 1: _currentRoutine = new SpitAndDrive(); break;
+            case 2: _currentRoutine = new DriveStraightDistance(); break;
+            case 3: _currentRoutine = new DriveTurnDrive(); break;
         }
         _currentRoutine.initialize();
     }
@@ -33,7 +36,16 @@ public class AutonomousManager {
         _finished = false;
     }
 
+    public void resetAuto() {
+        _startedRoutine = false;
+        _finished = false;
+    }
+
     public void updateRoutines(RobotState joysticks) {
+        boolean updateRoutine = joysticks.routine == AutonState.NextAuto ||
+                                joysticks.routine == AutonState.PreviousAuto ||
+                                _currentRoutine == null;
+
         if(joysticks.routine == AutonState.NextAuto) {
             nextRoutine();
             joysticks.routine = AutonState.AutoChanged;
@@ -42,7 +54,10 @@ public class AutonomousManager {
             previousRoutine();
             joysticks.routine = AutonState.AutoChanged;
         }
-        selectRoutine(_routineVal);
+
+        if(updateRoutine) {
+            selectRoutine(_routineVal);
+        }
     }
 
     public void runRoutine(SensorVals sensors, RobotState robot) {
@@ -60,6 +75,10 @@ public class AutonomousManager {
             _finished = true;
             _currentRoutine.end(robot);
         }
+    }
+
+    public String telemetry() {
+        return _currentRoutine.telemetry();
     }
 
     public String getAutoName() {

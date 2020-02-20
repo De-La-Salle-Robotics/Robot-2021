@@ -4,8 +4,9 @@ import edu.wpi.first.wpilibj.Timer;
 import frc.robot.utils.RobotState;
 import frc.robot.utils.SensorVals;
 import frc.robot.utils.RobotState.DriveTrainState;
+import frc.robot.utils.RobotState.PCState;
 
-public class DriveForward implements IRoutine{
+public class SpitAndDrive implements IRoutine{
     private boolean _finished;
     private Timer _timer;
 
@@ -20,17 +21,21 @@ public class DriveForward implements IRoutine{
         _timer.start();
     }
     public void onLoop(SensorVals sensors, RobotState robot) {
-        /* Run for two seconds */
+        /* Shoot for 2 seconds */
         if(_timer.get() < 2.0) {
+            robot.powerCellState = PCState.Shoot;
+        }
+        /* Drive for 2 more seconds */
+        else if(_timer.get() < 4.0) {
             robot.driveTrainState.set(DriveTrainState.PercentOut, 0.5, 0.5);
         }
-        else
-        {
+        else {
             _finished = true; /* We are finished at this point */
         }
     }
     public void end(RobotState robot) {
         robot.driveTrainState.set(DriveTrainState.PercentOut, 0, 0);
+        robot.powerCellState = PCState.WaitUp;
     }
     public boolean finished() {
         return _finished;
@@ -40,5 +45,5 @@ public class DriveForward implements IRoutine{
         return "" + _timer.get();
     }
 
-    public String getName() { return "Drive Forward"; }
+    public String getName() { return "Spit and Drive"; }
 }

@@ -1,20 +1,20 @@
 package frc.robot.autonomous.routines;
 
-import frc.robot.autonomous.actions.*;
+import frc.robot.autonomous.actions.Action;
+import frc.robot.autonomous.actions.MMDrive;
+import frc.robot.autonomous.actions.Score;
 import frc.robot.utils.RobotState;
 import frc.robot.utils.SensorVals;
 
-public class TestDriveScoreLeave implements IRoutine {
+public class TestCenterScore implements IRoutine {
     /* Distance, Heading, Time */
     private Action[] routines = {
-        new MMDrive(-22000, 0, 3.0),        // Drive to goal
-        new Score(1.0),                     // Shoot in goal
-        new MMDrive(20000, 45, 2.5),        // Drive toward trench
-        new MMDrive(18000, -47, 2.5),       // Line up to trench
-        new MMDriveCollect(68000, 0, 6.0),  // Drive through trench & collect
+        new MMDrive(-11000, -60 , 2.0), // Drive towards Goal
+        new MMDrive(-16500, 60 , 3.0), // Line up to goal
+        new Score(1), // Shoot Powercells
     };
 
-    public String getName() { return "NEW FRAMEWORK: Score And Leave"; }
+    public String getName() { return "Test Center Score"; }
 
     public void end(RobotState robot) {
         /* Don't end in any state other than what driver wants */

@@ -5,7 +5,20 @@ import frc.robot.utils.*;
 import frc.robot.utils.RobotState.AutonState;
 
 public class AutonomousManager {
-    private final int TOTAL_ROUTINES = 4;
+    private final int TOTAL_ROUTINES = 6;
+    private void selectRoutine(int val) {
+        _routineVal = val;
+        switch(val) {
+            case 0: _currentRoutine = new DriveForward(); break;
+            case 1: _currentRoutine = new DriveForwardScore(); break;
+            case 2: _currentRoutine = new ScoreAndLeave(); break;
+            case 3: _currentRoutine = new CenterScore(); break;
+            case 4: _currentRoutine = new TestDriveScoreLeave(); break;
+            case 5: _currentRoutine = new TestCenterScore(); break;
+        }
+        _currentRoutine.initialize();
+    }
+
     private IRoutine _currentRoutine;
 
     private int _routineVal;
@@ -19,16 +32,6 @@ public class AutonomousManager {
     private void previousRoutine() {
         _routineVal--;
         if(_routineVal < 0) _routineVal = TOTAL_ROUTINES - 1;
-    }
-    private void selectRoutine(int val) {
-        _routineVal = val;
-        switch(val) {
-            case 0: _currentRoutine = new DriveForward(); break;
-            case 1: _currentRoutine = new DriveForwardScore(); break;
-            case 2: _currentRoutine = new ScoreAndLeave(); break;
-            case 3: _currentRoutine = new CenterScore(); break;
-        }
-        _currentRoutine.initialize();
     }
 
     public AutonomousManager() {

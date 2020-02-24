@@ -60,7 +60,7 @@ public class RobotMap {
     private static void configControllers() {
         LeftDrivetrainConfigs.configSide(leftMaster, leftSlave);
         RightDrivetrainConfigs.configSide(rightMaster, rightSlave, leftMaster, pidgey);
-        HangerConfigs.configHanger(winch, climb);
+        HangerConfigs.configHanger(winch, climb, canifier);
         ConveyorConfigs.configConveyor(belt, shooter);
     }
 }

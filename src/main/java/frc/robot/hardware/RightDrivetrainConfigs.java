@@ -33,7 +33,7 @@ public class RightDrivetrainConfigs {
         masterConfigs.remoteFilter0.remoteSensorSource = RemoteSensorSource.Pigeon_Yaw;
 
         masterConfigs.motionCruiseVelocity = 1800;
-        masterConfigs.motionAcceleration = 1000;
+        masterConfigs.motionAcceleration = 3000;
 
         master.configAllSettings(masterConfigs);
         master.setInverted(true);

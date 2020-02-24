@@ -23,8 +23,6 @@ public class Winch {
             winchPower = 0;
         }
         _winch.set(ControlMode.PercentOutput, winchPower);
-
-        
     }
     
 

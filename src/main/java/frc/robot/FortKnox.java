@@ -28,6 +28,7 @@ public class FortKnox {
     private Intake _intake;
     private Climb _climb;
     private Arm _arm;
+    private Winch _winch;
 
     private AutonomousManager _autoManager;
 
@@ -48,6 +49,7 @@ public class FortKnox {
         _intake = new Intake(RobotMap.intake);
         _climb = new Climb(RobotMap.climb);
         _arm = new Arm(RobotMap.arm);
+        _winch = new Winch(RobotMap.winch);
     
         _robot = new RobotState(RobotMap.driverJoystick, RobotMap.operatorJoystick);
         _sensors = new SensorVals(RobotMap.leftMaster, RobotMap.rightMaster, RobotMap.pidgey);
@@ -79,6 +81,7 @@ public class FortKnox {
                 _shooter.shooterControl(_robot);
                 _drivetrain.operate(_robot);
                 _arm.armControl(_robot);
+                _winch.HookControl(_robot);
                 _autoManager.updateRoutines(_robot);
                 break;
             case Test:

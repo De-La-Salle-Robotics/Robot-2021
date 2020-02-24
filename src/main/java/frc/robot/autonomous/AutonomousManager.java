@@ -4,8 +4,9 @@ import frc.robot.autonomous.routines.*;
 import frc.robot.utils.*;
 import frc.robot.utils.RobotState.AutonState;
 
+
 public class AutonomousManager {
-    private final int TOTAL_ROUTINES = 6;
+    private final int TOTAL_ROUTINES = 8;
     private void selectRoutine(int val) {
         _routineVal = val;
         switch(val) {
@@ -15,6 +16,8 @@ public class AutonomousManager {
             case 3: _currentRoutine = new CenterScore(); break;
             case 4: _currentRoutine = new TestDriveScoreLeave(); break;
             case 5: _currentRoutine = new TestCenterScore(); break;
+            case 6: _currentRoutine = new FiveBall(); break;
+            case 7: _currentRoutine = new FourBall(); break; 
         }
         _currentRoutine.initialize();
     }

@@ -17,7 +17,7 @@ public void  climbControl(RobotState joysticks){
     if(joysticks.hanger == HangState.Deploy){
         climbpower = 0.3;
     }else if(joysticks.hanger == HangState.Retract){
-        climbpower = -0.3;
+        climbpower = -0.1;
     }else{
         climbpower = 0;
     }

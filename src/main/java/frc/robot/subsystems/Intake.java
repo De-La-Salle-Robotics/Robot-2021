@@ -3,8 +3,8 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 
-import frc.robot.utils.JoystickVals;
-import frc.robot.utils.JoystickVals.PCState;
+import frc.robot.utils.RobotState;
+import frc.robot.utils.RobotState.PCState;
 
 public class Intake {
     public BaseMotorController intake;
@@ -13,7 +13,7 @@ public class Intake {
         this.intake = intake;
     }
 
-    public void intakeControl(JoystickVals joysticks){
+    public void intakeControl(RobotState joysticks){
         double intakepower = 0; 
 
         if (joysticks.powerCellState == PCState.Suck){

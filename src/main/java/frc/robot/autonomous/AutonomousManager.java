@@ -2,12 +2,27 @@ package frc.robot.autonomous;
 
 import frc.robot.autonomous.routines.*;
 import frc.robot.utils.*;
-import frc.robot.utils.JoystickVals.AutonState;
+import frc.robot.utils.RobotState.AutonState;
+
 
 public class AutonomousManager {
-    private final int TOTAL_ROUTINES = 1;
+    private final int TOTAL_ROUTINES = 8;
+    private void selectRoutine(int val) {
+        _routineVal = val;
+        switch(val) {
+            case 0: _currentRoutine = new DriveForward(); break;
+            case 1: _currentRoutine = new DriveForwardScore(); break;
+            case 2: _currentRoutine = new ScoreAndLeave(); break;
+            case 3: _currentRoutine = new CenterScore(); break;
+            case 4: _currentRoutine = new TestDriveScoreLeave(); break;
+            case 5: _currentRoutine = new TestCenterScore(); break;
+            case 6: _currentRoutine = new FiveBall(); break;
+            case 7: _currentRoutine = new FourBall(); break; 
+        }
+        _currentRoutine.initialize();
+    }
+
     private IRoutine _currentRoutine;
-    private AutonomousHardware _hardware;
 
     private int _routineVal;
     private boolean _startedRoutine;
@@ -21,21 +36,22 @@ public class AutonomousManager {
         _routineVal--;
         if(_routineVal < 0) _routineVal = TOTAL_ROUTINES - 1;
     }
-    private void selectRoutine(int val) {
-        _routineVal = val;
-        switch(val) {
-            case 0: _currentRoutine = new DriveForward();
-        }
-        _currentRoutine.initialize();
-    }
 
-    public AutonomousManager(AutonomousHardware hardware) {
-        _hardware = hardware;
+    public AutonomousManager() {
         _startedRoutine = false;
         _finished = false;
     }
 
-    public void updateRoutines(JoystickVals joysticks) {
+    public void resetAuto() {
+        _startedRoutine = false;
+        _finished = false;
+    }
+
+    public void updateRoutines(RobotState joysticks) {
+        boolean updateRoutine = joysticks.routine == AutonState.NextAuto ||
+                                joysticks.routine == AutonState.PreviousAuto ||
+                                _currentRoutine == null;
+
         if(joysticks.routine == AutonState.NextAuto) {
             nextRoutine();
             joysticks.routine = AutonState.AutoChanged;
@@ -44,10 +60,13 @@ public class AutonomousManager {
             previousRoutine();
             joysticks.routine = AutonState.AutoChanged;
         }
-        selectRoutine(_routineVal);
+
+        if(updateRoutine) {
+            selectRoutine(_routineVal);
+        }
     }
 
-    public void runRoutine(SensorVals sensors) {
+    public void runRoutine(SensorVals sensors, RobotState robot) {
         if(_finished == true) {
             /* Do nothing */
         }else if(_startedRoutine == false) {
@@ -56,11 +75,19 @@ public class AutonomousManager {
             _startedRoutine = true;
         } else {
             /* Update the routine */
-            _currentRoutine.onLoop(sensors, _hardware);
+            _currentRoutine.onLoop(sensors, robot);
         }
         if(_currentRoutine.finished()) {
             _finished = true;
-            _currentRoutine.end(_hardware);
+            _currentRoutine.end(robot);
         }
+    }
+
+    public String telemetry() {
+        return _currentRoutine.telemetry();
+    }
+
+    public String getAutoName() {
+        return _currentRoutine.getName();
     }
 }

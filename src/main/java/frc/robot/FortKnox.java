@@ -1,10 +1,16 @@
 package frc.robot;
 
-import frc.robot.autonomous.AutonomousHardware;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.cscore.VideoSource;
+
+//import edu.wpi.cscore.UsbCamera;
+
+import edu.wpi.first.cameraserver.CameraServer;
 import frc.robot.autonomous.AutonomousManager;
+import frc.robot.dashboard.MainDashboard;
 import frc.robot.hardware.RobotMap;
 import frc.robot.subsystems.*;
-import frc.robot.utils.JoystickVals;
+import frc.robot.utils.RobotState;
 import frc.robot.utils.SensorVals; 
 
 public class FortKnox {
@@ -22,56 +28,68 @@ public class FortKnox {
     private Intake _intake;
     private Climb _climb;
     private Arm _arm;
+    private Winch _winch;
 
-    private AutonomousHardware _autoHardware;
     private AutonomousManager _autoManager;
 
-    private JoystickVals _joysticks;
+    private MainDashboard _dashboard;
+
+    private RobotState _robot;
     private SensorVals _sensors;
     public FortKnox() {
         RobotMap.initialize();
-        
-        _drivetrain = new Drivetrain(RobotMap.leftMaster, RobotMap.rightMaster);
+
+        UsbCamera src = new UsbCamera("usb0", "/dev/video0");
+        src.setResolution(320, 240);
+        CameraServer.getInstance().startAutomaticCapture(src);
+
+        _drivetrain = new Drivetrain(RobotMap.leftMaster, RobotMap.rightMaster, RobotMap.pidgey);
         _belt = new Belt(RobotMap.belt);
         _shooter = new Shooter(RobotMap.shooter);
         _intake = new Intake(RobotMap.intake);
         _climb = new Climb(RobotMap.climb);
         _arm = new Arm(RobotMap.arm);
-
-        _autoHardware = new AutonomousHardware(RobotMap.leftMaster, 
-                                            RobotMap.rightMaster, 
-                                            RobotMap.belt, 
-                                            RobotMap.shooter);
-        _autoManager = new AutonomousManager(_autoHardware);
+        _winch = new Winch(RobotMap.winch);
     
-        _joysticks = new JoystickVals(RobotMap.driverJoystick, RobotMap.operatorJoystick);
-        _sensors = new SensorVals(RobotMap.leftMaster, RobotMap.rightMaster);
+        _robot = new RobotState(RobotMap.driverJoystick, RobotMap.operatorJoystick);
+        _sensors = new SensorVals(RobotMap.leftMaster, RobotMap.rightMaster, RobotMap.pidgey);
+        
+        _autoManager = new AutonomousManager();
+
+        _dashboard = new MainDashboard(_sensors, _robot, _autoManager);
 
         _currentState = FortKnoxState.Disabled;
+        _dashboard.start();
     }
     public void periodicTasks(){
-        _joysticks.getJoystickValues();
+        _robot.getJoystickValues();
         _sensors.getSensorValues();
 
         switch(_currentState)
         {
             case Autonomous:
                 /* Run autonomous stuff here */
-                _autoManager.runRoutine(_sensors);
-                break;
+                /* _robot state will be overwritten by auto */
+                _autoManager.runRoutine(_sensors, _robot);
+                /* Fall-through */
             case Teleoperated:
             case Disabled:
                 /* Listen to joysticks and run our mechanisms */
-                _belt.beltControl(_joysticks);
-                _intake.intakeControl(_joysticks);
-                _climb.climbControl(_joysticks);
-                _drivetrain.operate(_joysticks);
-                _arm.armControl(_joysticks);
-                _autoManager.updateRoutines(_joysticks);
+                _belt.beltControl(_robot);
+                _intake.intakeControl(_robot);
+                _climb.climbControl(_robot);
+                _shooter.shooterControl(_robot);
+                _drivetrain.operate(_robot);
+                _arm.armControl(_robot);
+                _winch.HookControl(_robot);
+                _autoManager.updateRoutines(_robot);
                 break;
             case Test:
                 /* Test does its own stuff */
                 break;
+        }
+        if(_currentState == FortKnoxState.Disabled) {
+            _autoManager.resetAuto();
         }
     }
 

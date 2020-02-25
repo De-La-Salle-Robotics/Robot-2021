@@ -3,8 +3,8 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 
-import frc.robot.utils.JoystickVals;
-import frc.robot.utils.JoystickVals.PCState;
+import frc.robot.utils.RobotState;
+import frc.robot.utils.RobotState.PCState;
 
 public class Shooter {
     public BaseMotorController shooter;
@@ -13,11 +13,11 @@ public class Shooter {
         this.shooter = shooter;
     }
 
-    public void shooterControl(JoystickVals joysticks){
+    public void shooterControl(RobotState joysticks){
         double shooterpower = 0;
         
         if (joysticks.powerCellState == PCState.Shoot){
-            shooterpower = 0.5;
+            shooterpower = 1;
         } else {
             shooterpower = 0; 
         }

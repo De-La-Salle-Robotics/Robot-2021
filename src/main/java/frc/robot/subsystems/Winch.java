@@ -3,8 +3,8 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 
-import frc.robot.utils.JoystickVals;
-import frc.robot.utils.JoystickVals.HangState;
+import frc.robot.utils.RobotState;
+import frc.robot.utils.RobotState.HangState;
 
 public class Winch {
     private BaseMotorController _winch;
@@ -13,7 +13,7 @@ public class Winch {
         this._winch = winch;
     }
 
-    public void HookControl(JoystickVals joysticks){
+    public void HookControl(RobotState joysticks){
         double winchPower = 0;
 
         if (joysticks.hanger == HangState.Hang){
@@ -23,8 +23,6 @@ public class Winch {
             winchPower = 0;
         }
         _winch.set(ControlMode.PercentOutput, winchPower);
-
-        
     }
     
 

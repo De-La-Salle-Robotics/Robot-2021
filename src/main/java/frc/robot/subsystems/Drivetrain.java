@@ -1,25 +1,44 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.BaseTalon;
+import com.ctre.phoenix.motorcontrol.DemandType;
+import com.ctre.phoenix.motorcontrol.FollowerType;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.sensors.PigeonIMU;
 
-import frc.robot.utils.JoystickVals;
+import frc.robot.utils.RobotState;
 
 public class Drivetrain {
-    private BaseTalon _leftMaster;
-    private BaseTalon _rightMaster;
+    private TalonSRX _leftMaster;
+    private TalonSRX _rightMaster;
+    private PigeonIMU _pidgey;
 
-    public Drivetrain(BaseTalon leftMaster, BaseTalon rightMaster) {
+    public Drivetrain(TalonSRX leftMaster, TalonSRX rightMaster, PigeonIMU pigeon) {
         _leftMaster = leftMaster;
         _rightMaster = rightMaster;
-
+        _pidgey = pigeon;
     }
 
-    public void operate(JoystickVals joysticks) {
-        double leftSide = joysticks.throttle - joysticks.wheel;
-        double rightSide = joysticks.throttle + joysticks.wheel;
+    public void operate(RobotState joysticks) {
+        /* Check if we should reset sensors */
+        if(joysticks.clearSensors) {
+            _leftMaster.getSensorCollection().setQuadraturePosition(0, 0);
+            _rightMaster.getSensorCollection().setQuadraturePosition(0, 0);
+            _pidgey.setYaw(0);
+        }
 
-        _leftMaster.set(ControlMode.PercentOutput, leftSide);
-        _rightMaster.set(ControlMode.PercentOutput, rightSide);
+        switch(joysticks.driveTrainState.state) {
+            case PercentOut:
+                _leftMaster.set(ControlMode.PercentOutput, joysticks.driveTrainState.leftSide);
+                _rightMaster.set(ControlMode.PercentOutput, joysticks.driveTrainState.rightSide);
+                break;
+            case Position:
+                break;
+            case MotionMagic:
+                _leftMaster.follow(_rightMaster, FollowerType.AuxOutput1);
+                _rightMaster.set(ControlMode.MotionMagic, joysticks.driveTrainState.rightSide,
+                                DemandType.AuxPID, joysticks.driveTrainState.leftSide);
+                break;
+        }
     }
 }

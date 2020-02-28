@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.autonomous.AutonomousManager;
+import frc.robot.hardware.RobotMap;
 import frc.robot.utils.SensorVals;
 import frc.robot.utils.RobotState;;
 
@@ -46,6 +47,8 @@ public class MainDashboard extends Thread {
             /* Display match information */
             SmartDashboard.putNumber("Match Time", Timer.getMatchTime());
             SmartDashboard.putString("Game Data", DriverStation.getInstance().getGameSpecificMessage());
+
+            SmartDashboard.putNumber("Current", RobotMap.pdp.getTotalCurrent());
         }
     }
 

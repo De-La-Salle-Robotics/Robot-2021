@@ -39,6 +39,10 @@ public class Drivetrain {
                 _rightMaster.set(ControlMode.MotionMagic, joysticks.driveTrainState.rightSide,
                                 DemandType.AuxPID, joysticks.driveTrainState.leftSide);
                 break;
+            case SlowDrive:
+                _leftMaster.set(ControlMode.PercentOutput, joysticks.driveTrainState.leftSide * 0.3);
+                _rightMaster.set(ControlMode.PercentOutput, joysticks.driveTrainState.rightSide * 0.3);
+                break;
         }
     }
 }

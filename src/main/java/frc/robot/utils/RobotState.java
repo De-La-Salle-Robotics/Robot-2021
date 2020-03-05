@@ -76,7 +76,9 @@ public class RobotState{
 
         if(_driver.getRawButton(6)) {
             /* Right Bumper pressed, slow drive */
-            driveTrainState.state = DriveTrainState.SlowDrive;
+            throt *= 0.3; // Throttle down to 0.3
+            wheel *= 0.6; // Wheel down to 0.6
+            driveTrainState.set(DriveTrainState.SlowDrive, throt + wheel, throt - wheel);
         }
         
         /* If we press arm down, go down */

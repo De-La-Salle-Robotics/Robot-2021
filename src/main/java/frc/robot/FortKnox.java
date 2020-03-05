@@ -33,7 +33,7 @@ public class FortKnox {
     public FortKnox() {
         RobotMap.initialize();
 
-        _drivetrain = new Drivetrain(RobotMap.leftMaster, RobotMap.rightMaster, RobotMap.pidgey);
+        _drivetrain = new Drivetrain(RobotMap.leftMaster, RobotMap.rightMaster, RobotMap.leftSlave, RobotMap.rightSlave, RobotMap.pidgey);
         _belt = new Belt(RobotMap.belt);
         _shooter = new Shooter(RobotMap.shooter);
         _intake = new Intake(RobotMap.intake);

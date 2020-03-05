@@ -33,8 +33,8 @@ public class RightDrivetrainConfigs {
         masterConfigs.remoteFilter0.remoteSensorSource = RemoteSensorSource.Pigeon_Yaw;
 
         masterConfigs.peakCurrentLimit = 40;
-        masterConfigs.peakCurrentDuration = 100;
-        masterConfigs.continuousCurrentLimit = 35;
+        masterConfigs.peakCurrentDuration = 0;
+        masterConfigs.continuousCurrentLimit = 20;
 
         masterConfigs.openloopRamp = 0.1;
 

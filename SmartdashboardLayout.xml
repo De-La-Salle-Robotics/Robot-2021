@@ -1,5 +1,11 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="Right Slave Val" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1549" y="463"/>
+	</widget>
+	<widget field="Left Slave Val" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1381" y="463"/>
+	</widget>
 	<widget field="Current" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="1395" y="370"/>
 	</widget>
@@ -52,14 +58,14 @@
 </dashboard>
 <live-window>
 	<widget field="Ungrouped" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
-		<widget field="DoubleSolenoid[0,0]" type="Double Solenoid" class="edu.wpi.first.smartdashboard.livewindow.elements.RelayController">
+		<widget field="PowerDistributionPanel[0]" type="PowerDistributionPanel" class="edu.wpi.first.smartdashboard.livewindow.elements.PowerDistributionPanel">
 			<location x="6" y="16"/>
-			<height>20</height>
+			<height>194</height>
 			<width>340</width>
 		</widget>
-		<widget field="PowerDistributionPanel[0]" type="PowerDistributionPanel" class="edu.wpi.first.smartdashboard.livewindow.elements.PowerDistributionPanel">
-			<location x="6" y="36"/>
-			<height>194</height>
+		<widget field="DoubleSolenoid[0,0]" type="Double Solenoid" class="edu.wpi.first.smartdashboard.livewindow.elements.RelayController">
+			<location x="6" y="210"/>
+			<height>20</height>
 			<width>340</width>
 		</widget>
 		<location x="0" y="0"/>

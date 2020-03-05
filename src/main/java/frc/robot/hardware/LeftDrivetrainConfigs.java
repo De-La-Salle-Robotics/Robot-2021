@@ -15,8 +15,8 @@ public class LeftDrivetrainConfigs {
         masterConfigs.openloopRamp = 0.1;
 
         masterConfigs.peakCurrentLimit = 40;
-        masterConfigs.peakCurrentDuration = 100;
-        masterConfigs.continuousCurrentLimit = 35;
+        masterConfigs.peakCurrentDuration = 0;
+        masterConfigs.continuousCurrentLimit = 20;
 
         master.configAllSettings(masterConfigs);
         master.setInverted(false);

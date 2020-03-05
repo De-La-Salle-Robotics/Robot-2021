@@ -44,6 +44,10 @@ public class MainDashboard extends Thread {
             SmartDashboard.putString("Pigeon State", _sensors.pidgeyState.toString());
             SmartDashboard.putNumber("Direction", _sensors.heading);
 
+            /* Display motor states */
+            SmartDashboard.putNumber("Left Slave Val", RobotMap.leftSlave.getMotorOutputPercent()); // Poll slaves to check for breaker trip
+            SmartDashboard.putNumber("Right Slave Val", RobotMap.rightSlave.getMotorOutputPercent()); // Poll slaves to check for breaker trip
+
             /* Display match information */
             SmartDashboard.putNumber("Match Time", Timer.getMatchTime());
             SmartDashboard.putString("Game Data", DriverStation.getInstance().getGameSpecificMessage());

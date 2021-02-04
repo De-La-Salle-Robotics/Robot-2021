@@ -2,6 +2,7 @@ package frc.robot.hardware;
 
 import com.ctre.phoenix.motorcontrol.can.*;
 import com.ctre.phoenix.sensors.PigeonIMU;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
@@ -9,18 +10,23 @@ import com.ctre.phoenix.CANifier;
 
 public class RobotMap {
     /* Drivetrain */
-    public static TalonSRX leftMaster;
-    public static VictorSPX leftSlave;
-    public static TalonSRX rightMaster;
-    public static VictorSPX rightSlave;
+    public static TalonFX leftMaster;
+    public static TalonFX leftSlave;
+    public static TalonFX rightMaster;
+    public static TalonFX rightSlave;
     public static PigeonIMU pidgey;
 
     /* Arm and Collector */
     public static DoubleSolenoid arm;
     public static BaseMotorController intake;
-    /* Conveyor Belt */
-    public static VictorSPX belt;
-    public static VictorSPX shooter;
+    /* Spinner */
+    public static VictorSPX spinnner;
+    /* Feeder */
+    public static TalonFX feeder;
+    /* Adjustable Hood */
+    public static VictorSPX hood;
+    /* Flywheel */
+    public static TalonFX flywheel;
     /* Climber */
     public static VictorSPX climb;
     public static VictorSPX winch;
@@ -31,20 +37,23 @@ public class RobotMap {
     public static CANifier canifier;
 
     public static void initialize() {
-        leftMaster = new TalonSRX(1);
-        leftSlave = new VictorSPX(1);
-        rightMaster = new TalonSRX(2);
-        rightSlave = new VictorSPX(2);
+        leftMaster = new TalonFX(1);
+        leftSlave = new TalonFX(2);
+        rightMaster = new TalonFX(3);
+        rightSlave = new TalonFX(4);
         pidgey = new PigeonIMU(1);
 
         arm = new DoubleSolenoid(0, 1);
         intake = new VictorSPX(6);
 
-        belt = new VictorSPX(4);
-        shooter = new VictorSPX(5);
+        spinner = new VictorSPX(4);
+        
+        feeder = new TalonFX(5);
+        flywheel = new TalonFX(6);
 
-        belt.setInverted(true);
-        shooter.setInverted(true);
+        spinner.setInverted(true);
+        feeder.setInverted(true);
+        flywheel.setInverted(true);
 
         climb = new VictorSPX(7);
         winch = new VictorSPX(3);
@@ -61,6 +70,6 @@ public class RobotMap {
         LeftDrivetrainConfigs.configSide(leftMaster, leftSlave);
         RightDrivetrainConfigs.configSide(rightMaster, rightSlave, leftMaster, pidgey);
         HangerConfigs.configHanger(winch, climb, canifier);
-        ConveyorConfigs.configConveyor(belt, shooter);
+        ConveyorConfigs.configConveyor(spinner, feeder);
     }
 }

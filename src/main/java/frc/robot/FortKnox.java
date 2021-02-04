@@ -23,12 +23,14 @@ public class FortKnox {
     private FortKnoxState _currentState;
 
     private Drivetrain _drivetrain;
-    private Belt _belt;
-    private Shooter _shooter;
+    private Spinner _spinner;
+    private Feeder _feeder;
     private Intake _intake;
     private Climb _climb;
     private Arm _arm;
     private Winch _winch;
+    private Flywheel _flywheel;
+    private Hood _hood;
 
     private AutonomousManager _autoManager;
 
@@ -44,8 +46,10 @@ public class FortKnox {
         CameraServer.getInstance().startAutomaticCapture(src);
 
         _drivetrain = new Drivetrain(RobotMap.leftMaster, RobotMap.rightMaster, RobotMap.pidgey);
-        _belt = new Belt(RobotMap.belt);
-        _shooter = new Shooter(RobotMap.shooter);
+        _spinner = new Spinner(RobotMap.spinner);
+        _feeder = new Feeder(RobotMap.feeder);
+        _hood = new Hood(RobotMap.hood);
+        _flywheel = new Flywheel(RobotMap.flywheel);
         _intake = new Intake(RobotMap.intake);
         _climb = new Climb(RobotMap.climb);
         _arm = new Arm(RobotMap.arm);
@@ -75,15 +79,18 @@ public class FortKnox {
             case Teleoperated:
             case Disabled:
                 /* Listen to joysticks and run our mechanisms */
-                _belt.beltControl(_robot);
+                _spinner.spinnerControl(_robot);
                 _intake.intakeControl(_robot);
                 _climb.climbControl(_robot);
-                _shooter.shooterControl(_robot);
+                _feeder.feederControl(_robot);
                 _drivetrain.operate(_robot);
                 _arm.armControl(_robot);
                 _winch.HookControl(_robot);
                 _autoManager.updateRoutines(_robot);
+                _hood.hoodControl(_robot);
+                _flywheel.flywheelControl(_robot);
                 break;
+                
             case Test:
                 /* Test does its own stuff */
                 break;

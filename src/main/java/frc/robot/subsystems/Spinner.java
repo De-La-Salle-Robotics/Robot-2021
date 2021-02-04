@@ -6,27 +6,27 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import frc.robot.utils.RobotState;
 import frc.robot.utils.RobotState.PCState;
 
-public class Belt{
-    private BaseMotorController belt;
+public class Spinner{
+    private BaseMotorController spinner;
 
-    public Belt(BaseMotorController belt){
-        this.belt = belt;
+    public Spinner(BaseMotorController spinner){
+        this.spinner = spinner;
     }
-    public void beltControl(RobotState joysticks){
-        double beltpower = 0;
+    public void spinnerControl(RobotState joysticks){
+        double spinnerpower = 0;
 
-        /* This code handles the conveyor belt */
+        /* This code handles the spinner for index */
         if (joysticks.powerCellState == PCState.Suck ||
             joysticks.powerCellState == PCState.Shoot){
-            beltpower = 1;
+            spinnerpower = 1;
         }
         else if (joysticks.powerCellState == RobotState.PCState.Blow){
-            beltpower = -0.8;
+            spinnerpower = -0.8;
         }
         else{
-            beltpower = 0;
+            spinnerpower = 0;
         }
         
-        belt.set(ControlMode.PercentOutput, beltpower); /* Output the conveyor belt */
+        spinner.set(ControlMode.PercentOutput, spinnerpower); /* Output the spinner */
     }
 }

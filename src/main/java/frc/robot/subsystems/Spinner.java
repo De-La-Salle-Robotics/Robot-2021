@@ -18,10 +18,10 @@ public class Spinner{
         /* This code handles the spinner for index */
         if (joysticks.powerCellState == PCState.Suck ||
             joysticks.powerCellState == PCState.Shoot){
-            spinnerpower = 1;
+            spinnerpower = 0.1;
         }
         else if (joysticks.powerCellState == RobotState.PCState.Blow){
-            spinnerpower = -0.8;
+            spinnerpower = -0.4;
         }
         else{
             spinnerpower = 0;

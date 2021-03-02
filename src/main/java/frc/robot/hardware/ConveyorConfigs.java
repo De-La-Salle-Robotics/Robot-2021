@@ -6,11 +6,11 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 
 public class ConveyorConfigs {
-    public static void configConveyor(VictorSPX belt, TalonFX feeder) {
-        VictorSPXConfiguration beltConfigs = new VictorSPXConfiguration();
+    public static void configConveyor(VictorSPX spinner, TalonFX feeder) {
+        VictorSPXConfiguration spinnerConfigs = new VictorSPXConfiguration();
 
-        belt.configAllSettings(beltConfigs);
-        belt.setInverted(true);
+        spinner.configAllSettings(spinnerConfigs);
+        spinner.setInverted(true);
 
         TalonFXConfiguration feederConfigs = new TalonFXConfiguration();
 

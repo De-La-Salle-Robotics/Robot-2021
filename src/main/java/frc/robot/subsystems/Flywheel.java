@@ -1,10 +1,10 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.mototcontrol.NeutralMode;
-import com.ctre.phoneix.motorcontrol.TalonFXInvertType;
-import com.ctre.phoneix.motorcontrol.ControlMode;
-import com.ctre.phoniex.motorcontrol.DemandType;
-import com.ctre.phoneix.motorcontrol.can.TalonFX; 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.DemandType;
+import com.ctre.phoenix.motorcontrol.can.TalonFX; 
 
 import frc.robot.utils.RobotState;
 import frc.robot.utils.RobotState.PCState;
@@ -20,7 +20,8 @@ public class Flywheel {
       public void flywheelControl(RobotState joysticks){
         double flywheelpower = 0;
         
-        if (joysticks.powerCellState == PCState.Shoot){
+        if (joysticks.powerCellState == PCState.Gulp)
+        if (joysticks.powerCellState == PCState.Fire){
             flywheelpower = 1;
             } else {
              flywheelpower = 0;

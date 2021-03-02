@@ -34,7 +34,6 @@ public class MainDashboard extends Thread {
 
             /* Display Robot States */
             SmartDashboard.putString("Robot State", _robotState.powerCellState.toString());
-            SmartDashboard.putString("Hanger State", _robotState.hanger.toString());
             SmartDashboard.putString("Drivetrain State", _robotState.driveTrainState.toString());
 
             /* Display sensor information */

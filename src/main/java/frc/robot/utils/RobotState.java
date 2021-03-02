@@ -10,14 +10,11 @@ public class RobotState{
         WaitDown,
         Suck,
         Blow,
-        Shoot,
+        Gulp,
+        Spit, 
+        Fire,
     }
-    public enum HangState {
-        Deploy,
-        Retract,
-        Hang,
-        Nothing,
-    }
+    
     public enum AutonState {
         NextAuto,
         PreviousAuto,
@@ -48,7 +45,6 @@ public class RobotState{
     
     public DTStruct driveTrainState;
     public PCState powerCellState;
-    public HangState hanger;
     public AutonState routine;
 
     public boolean clearSensors;
@@ -62,7 +58,6 @@ public class RobotState{
         /* Initialize states */
         driveTrainState = new DTStruct();
         powerCellState = PCState.WaitUp;
-        hanger = HangState.Nothing;
         routine = AutonState.AutoChanged;
 
         clearSensors = false;
@@ -83,9 +78,9 @@ public class RobotState{
         /* If we press blow, go into blow */
         } else if (_operator.getRawButton(6)) {
             powerCellState = PCState.Blow;
-        /* If we press shoot, go into shoot */
+        /* If we press gulp, go into gulp */
         } else if (_operator.getRawButton(8)) {
-            powerCellState = PCState.Shoot;
+            powerCellState = PCState.Gulp;
         /* If we press arm up, go into waitup */
         } else if (_operator.getRawButton(2)) {
             powerCellState = PCState.WaitUp;
@@ -101,20 +96,7 @@ public class RobotState{
             }
         }
 
-        /* If we press deploy, start to deploy */
-        if(_driver.getRawButton(1)) {
-            hanger = HangState.Deploy;
-        /* If we press retract, go into retract */
-        } else if(_driver.getRawButton(2)) {
-            hanger = HangState.Retract;
-        /* If we press hang, go into hang */
-        } else if(_driver.getRawButton(3)) {
-            hanger = HangState.Hang;
-        /* Otherwise we do nothing */
-        } else {
-            hanger = HangState.Nothing;
-        }
-
+     
         if(routine != AutonState.AutoChanged) {
             if(_driver.getPOV() == 90) {
                 routine = AutonState.NextAuto;

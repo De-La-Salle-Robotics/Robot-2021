@@ -23,8 +23,6 @@ public class RobotMap {
     public static VictorSPX spinner;
     /* Feeder */
     public static TalonFX feeder;
-    /* Adjustable Hood */
-    public static VictorSPX hood;
     /* Flywheel */
     public static TalonFX flywheel;
     /* Climber */

@@ -20,7 +20,7 @@ public class RobotMap {
     public static DoubleSolenoid arm;
     public static BaseMotorController intake;
     /* Spinner */
-    public static VictorSPX spinnner;
+    public static VictorSPX spinner;
     /* Feeder */
     public static TalonFX feeder;
     /* Adjustable Hood */
@@ -44,7 +44,7 @@ public class RobotMap {
         pidgey = new PigeonIMU(1);
 
         arm = new DoubleSolenoid(0, 1);
-        intake = new VictorSPX(6);
+        intake = new TalonSRX(6);
 
         spinner = new VictorSPX(4);
         

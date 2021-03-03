@@ -1,19 +1,24 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
+import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
+import com.ctre.phoenix.motorcontrol.TalonFXSensorCollection;
+import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
+import com.ctre.phoenix.motorcontrol.can.TalonFXPIDSetConfiguration;
+import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.FollowerType;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
 
 import frc.robot.utils.RobotState;
 
 public class Drivetrain {
-    private TalonSRX _leftMaster;
-    private TalonSRX _rightMaster;
+    private TalonFX _leftMaster;
+    private TalonFX _rightMaster;
     private PigeonIMU _pidgey;
 
-    public Drivetrain(TalonSRX leftMaster, TalonSRX rightMaster, PigeonIMU pigeon) {
+    public Drivetrain(TalonFX leftMaster, TalonFX rightMaster, PigeonIMU pigeon) {
         _leftMaster = leftMaster;
         _rightMaster = rightMaster;
         _pidgey = pigeon;
@@ -22,21 +27,21 @@ public class Drivetrain {
     public void operate(RobotState joysticks) {
         /* Check if we should reset sensors */
         if(joysticks.clearSensors) {
-            _leftMaster.getSensorCollection().setQuadraturePosition(0, 0);
-            _rightMaster.getSensorCollection().setQuadraturePosition(0, 0);
+            _leftMaster.getSensorCollection().setIntegratedSensorPosition(0, 0);
+            _rightMaster.getSensorCollection().setIntegratedSensorPosition(0, 0);
             _pidgey.setYaw(0);
         }
 
         switch(joysticks.driveTrainState.state) {
             case PercentOut:
-                _leftMaster.set(ControlMode.PercentOutput, joysticks.driveTrainState.leftSide);
-                _rightMaster.set(ControlMode.PercentOutput, joysticks.driveTrainState.rightSide);
+                _leftMaster.set(TalonFXControlMode.PercentOutput, joysticks.driveTrainState.leftSide);
+                _rightMaster.set(TalonFXControlMode.PercentOutput, joysticks.driveTrainState.rightSide);
                 break;
             case Position:
                 break;
             case MotionMagic:
                 _leftMaster.follow(_rightMaster, FollowerType.AuxOutput1);
-                _rightMaster.set(ControlMode.MotionMagic, joysticks.driveTrainState.rightSide,
+                _rightMaster.set(TalonFXControlMode.MotionMagic, joysticks.driveTrainState.rightSide,
                                 DemandType.AuxPID, joysticks.driveTrainState.leftSide);
                 break;
         }

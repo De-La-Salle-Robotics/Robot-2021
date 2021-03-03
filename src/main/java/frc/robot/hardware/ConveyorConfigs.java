@@ -2,17 +2,19 @@ package frc.robot.hardware;
 
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPXConfiguration;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 
 public class ConveyorConfigs {
-    public static void configConveyor(VictorSPX belt, VictorSPX shooter) {
-        VictorSPXConfiguration beltConfigs = new VictorSPXConfiguration();
+    public static void configConveyor(VictorSPX spinner, TalonFX feeder) {
+        VictorSPXConfiguration spinnerConfigs = new VictorSPXConfiguration();
 
-        belt.configAllSettings(beltConfigs);
-        belt.setInverted(true);
+        spinner.configAllSettings(spinnerConfigs);
+        spinner.setInverted(true);
 
-        VictorSPXConfiguration shooterConfigs = new VictorSPXConfiguration();
+        TalonFXConfiguration feederConfigs = new TalonFXConfiguration();
 
-        shooter.configAllSettings(shooterConfigs);
-        shooter.setInverted(true);
+        feeder.configAllSettings(feederConfigs);
+        feeder.setInverted(true);
     }
 }

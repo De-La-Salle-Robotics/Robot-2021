@@ -48,7 +48,7 @@ public class ScoreAndLeave implements IRoutine{
                                     DISTANCE_CHANGE_1 + _distanceOffset);
             _lastState = 0;
         } else if(_timer.get() < 4.0) {
-            robot.powerCellState = PCState.Shoot;
+            robot.powerCellState = PCState.Fire;
             _lastState = 1;
         } else if(_timer.get() < 6.5) {
             if(_lastState == 1) {

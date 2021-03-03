@@ -26,11 +26,9 @@ public class FortKnox {
     private Spinner _spinner;
     private Feeder _feeder;
     private Intake _intake;
-    private Climb _climb;
     private Arm _arm;
-    private Winch _winch;
+    
     private Flywheel _flywheel;
-    private Hood _hood;
 
     private AutonomousManager _autoManager;
 
@@ -48,12 +46,9 @@ public class FortKnox {
         _drivetrain = new Drivetrain(RobotMap.leftMaster, RobotMap.rightMaster, RobotMap.pidgey);
         _spinner = new Spinner(RobotMap.spinner);
         _feeder = new Feeder(RobotMap.feeder);
-        _hood = new Hood(RobotMap.hood);
         _flywheel = new Flywheel(RobotMap.flywheel);
         _intake = new Intake(RobotMap.intake);
-        _climb = new Climb(RobotMap.climb);
         _arm = new Arm(RobotMap.arm);
-        _winch = new Winch(RobotMap.winch);
     
         _robot = new RobotState(RobotMap.driverJoystick, RobotMap.operatorJoystick);
         _sensors = new SensorVals(RobotMap.leftMaster, RobotMap.rightMaster, RobotMap.pidgey);
@@ -81,13 +76,10 @@ public class FortKnox {
                 /* Listen to joysticks and run our mechanisms */
                 _spinner.spinnerControl(_robot);
                 _intake.intakeControl(_robot);
-                _climb.climbControl(_robot);
                 _feeder.feederControl(_robot);
                 _drivetrain.operate(_robot);
                 _arm.armControl(_robot);
-                _winch.HookControl(_robot);
                 _autoManager.updateRoutines(_robot);
-                _hood.hoodControl(_robot);
                 _flywheel.flywheelControl(_robot);
                 break;
                 

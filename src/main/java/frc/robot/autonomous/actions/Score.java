@@ -27,7 +27,7 @@ public class Score implements Action {
     public void initialize(Action prevAction) { 
         initialize(prevAction.distElapsed(), prevAction.headingElapsed()); 
     }
-    public void run(RobotState state, SensorVals sensors) { state.powerCellState = PCState.Shoot; }
+    public void run(RobotState state, SensorVals sensors) { state.powerCellState = PCState.Gulp; }
     
     public boolean finished() { return _timer.get() >= _time; }
 }

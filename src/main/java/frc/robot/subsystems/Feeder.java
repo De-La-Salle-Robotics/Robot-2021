@@ -3,7 +3,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
-import com.ctre.phoneix.motorcontrol.DemandType;
+import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import frc.robot.utils.RobotState;
@@ -19,9 +19,14 @@ public class Feeder {
     public void feederControl(RobotState joysticks){
         double feederpower = 0;
         
-        if (joysticks.powerCellState == PCState.Shoot){
+        if (joysticks.powerCellState == PCState.Gulp)
+        if (joysticks.powerCellState == PCState.Fire){
             feederpower = 1;
-        } else {
+        } 
+        else if (joysticks.powerCellState == PCState.Spit){
+            feederpower = -0.75;
+        }
+            else {
             feederpower = 0; 
         }
         feeder.set(ControlMode.PercentOutput, feederpower);

@@ -30,10 +30,10 @@ public class RobotMap {
     public static Joystick operatorJoystick;
 
     public static void initialize() {
-        leftMaster = new TalonFX(1);
-        leftSlave = new TalonFX(2);
-        rightMaster = new TalonFX(3);
-        rightSlave = new TalonFX(4);
+        leftMaster = new TalonFX(0);
+        leftSlave = new TalonFX(1);
+        rightMaster = new TalonFX(2);
+        rightSlave = new TalonFX(3);
         pidgey = new PigeonIMU(1);
 
         arm = new DoubleSolenoid(0, 1);
@@ -41,8 +41,8 @@ public class RobotMap {
 
         spinner = new VictorSPX(4);
         
-        feeder = new TalonFX(5);
-        flywheel = new TalonFX(6);
+        feeder = new TalonFX(4);
+        flywheel = new TalonFX(5);
 
         spinner.setInverted(true);
         feeder.setInverted(true);

@@ -1,7 +1,5 @@
 package frc.robot.utils;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-
 import edu.wpi.first.wpilibj.Joystick;
 
 public class RobotState{

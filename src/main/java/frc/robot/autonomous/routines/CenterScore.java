@@ -54,7 +54,7 @@ public class CenterScore implements IRoutine{
                                     DISTANCE_CHANGE_2 + _distanceOffset);
             _lastState = 1;
         } else if(_timer.get() < 8.0) {
-            robot.powerCellState = PCState.Gulp;
+            robot.powerCellState = PCState.Discharge;
            _lastState = 2;
         } else {
             _finished = true; /* We are finished at this point */

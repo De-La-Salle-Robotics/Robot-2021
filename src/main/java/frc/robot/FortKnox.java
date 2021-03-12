@@ -30,6 +30,8 @@ public class FortKnox {
     
     private Flywheel _flywheel;
 
+    private Limelight _limelight;
+
     private AutonomousManager _autoManager;
 
     private MainDashboard _dashboard;
@@ -49,6 +51,7 @@ public class FortKnox {
         _flywheel = new Flywheel(RobotMap.flywheel);
         _intake = new Intake(RobotMap.intake);
         _arm = new Arm(RobotMap.arm);
+        _limelight = new Limelight();
     
         _robot = new RobotState(RobotMap.driverJoystick, RobotMap.operatorJoystick);
         _sensors = new SensorVals(RobotMap.leftMaster, RobotMap.rightMaster, RobotMap.pidgey);

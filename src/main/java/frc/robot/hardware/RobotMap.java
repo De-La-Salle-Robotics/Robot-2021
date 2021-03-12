@@ -6,6 +6,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
+import frc.robot.subsystems.Limelight;
 
 public class RobotMap {
     /* Drivetrain */
@@ -24,7 +25,8 @@ public class RobotMap {
     public static TalonFX feeder;
     /* Flywheel */
     public static TalonFX flywheel;
-
+    /* Limelight */
+    public static Limelight limelight;
 
     public static Joystick driverJoystick;
     public static Joystick operatorJoystick;
@@ -39,10 +41,12 @@ public class RobotMap {
         arm = new DoubleSolenoid(0, 1);
         intake = new TalonSRX(6);
 
-        spinner = new VictorSPX(4);
+        spinner = new VictorSPX(7);
         
         feeder = new TalonFX(4);
         flywheel = new TalonFX(5);
+
+        limelight = new Limelight();
 
         spinner.setInverted(true);
         feeder.setInverted(true);
@@ -57,6 +61,6 @@ public class RobotMap {
     private static void configControllers() {
         LeftDrivetrainConfigs.configSide(leftMaster, leftSlave);
         RightDrivetrainConfigs.configSide(rightMaster, rightSlave, leftMaster, pidgey);
-        ConveyorConfigs.configConveyor(spinner, feeder);
+        feedexConfigs.configFeedex(spinner, feeder);
     }
 }

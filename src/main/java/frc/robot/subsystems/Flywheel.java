@@ -18,7 +18,7 @@ public class Flywheel {
         double flywheelpower = 0;
         
         if (joysticks.powerCellState == PCState.Gulp)
-        if (joysticks.powerCellState == PCState.Fire){
+        if (joysticks.powerCellState == PCState.Discharge){
             flywheelpower = 1;
             } else {
              flywheelpower = 0;

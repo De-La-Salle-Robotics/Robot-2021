@@ -17,11 +17,11 @@ public class Feeder {
         double feederpower = 0;
         
         if (joysticks.powerCellState == PCState.Gulp)
-        if (joysticks.powerCellState == PCState.Fire){
-            feederpower = 1;
+        if (joysticks.powerCellState == PCState.Discharge){
+            feederpower = 0.15;
         } 
         else if (joysticks.powerCellState == PCState.Spit){
-            feederpower = -0.75;
+            feederpower = -0.15;
         }
             else {
             feederpower = 0; 

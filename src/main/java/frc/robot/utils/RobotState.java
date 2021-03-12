@@ -10,7 +10,7 @@ public class RobotState{
         Blow,
         Gulp,
         Spit, 
-        Fire,
+        Discharge,
     }
     
     public enum AutonState {
@@ -79,8 +79,11 @@ public class RobotState{
         /* If we press gulp, go into gulp */
         } else if (_operator.getRawButton(8)) {
             powerCellState = PCState.Gulp;
-        /* If we press arm up, go into waitup */
-        } else if (_operator.getRawButton(2)) {
+        /* If we press discharge, go into discharge */
+        } else if (_operator.getRawButton(5)) {
+            powerCellState = PCState.Discharge;
+            /* If we press arm up, go into waitup */
+        } if (_operator.getRawButton(2)) {
             powerCellState = PCState.WaitUp;
         /* If we didn't press anything, go into wait based on last state */
         } else {

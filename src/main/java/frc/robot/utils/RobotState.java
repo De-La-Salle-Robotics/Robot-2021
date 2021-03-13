@@ -74,16 +74,16 @@ public class RobotState{
         } else if (_operator.getRawButton(7)) {
             powerCellState = PCState.Suck;
         /* If we press blow, go into blow */
-        } else if (_operator.getRawButton(6)) {
+        } else if (_operator.getRawButton(3)) {
             powerCellState = PCState.Blow;
         /* If we press gulp, go into gulp */
-        } else if (_operator.getRawButton(8)) {
+        } else if (_operator.getRawButton(5)) {
             powerCellState = PCState.Gulp;
         /* If we press discharge, go into discharge */
-        } else if (_operator.getRawButton(5)) {
+        } else if (_operator.getRawButton(8)) {
             powerCellState = PCState.Discharge;
             /* If we press arm up, go into waitup */
-        } if (_operator.getRawButton(2)) {
+        } else if (_operator.getRawButton(2)) {
             powerCellState = PCState.WaitUp;
         /* If we didn't press anything, go into wait based on last state */
         } else {

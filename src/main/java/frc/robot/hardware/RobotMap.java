@@ -1,5 +1,6 @@
 package frc.robot.hardware;
 
+import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.*;
 import com.ctre.phoenix.sensors.PigeonIMU;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
@@ -38,7 +39,7 @@ public class RobotMap {
         rightSlave = new TalonFX(3);
         pidgey = new PigeonIMU(1);
 
-        arm = new DoubleSolenoid(0, 1);
+        arm = new DoubleSolenoid(3, 2);
         intake = new TalonSRX(6);
 
         spinner = new VictorSPX(7);
@@ -49,7 +50,6 @@ public class RobotMap {
         limelight = new Limelight();
 
         spinner.setInverted(true);
-        feeder.setInverted(true);
         flywheel.setInverted(true);
 
         driverJoystick = new Joystick(0);

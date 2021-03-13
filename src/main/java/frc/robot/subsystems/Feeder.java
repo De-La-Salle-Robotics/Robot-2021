@@ -16,14 +16,14 @@ public class Feeder {
     public void feederControl(RobotState joysticks){
         double feederpower = 0;
         
-        if (joysticks.powerCellState == PCState.Gulp)
-        if (joysticks.powerCellState == PCState.Discharge){
+        if (joysticks.powerCellState == PCState.Gulp ||
+            joysticks.powerCellState == PCState.Discharge){
             feederpower = 0.15;
         } 
         else if (joysticks.powerCellState == PCState.Spit){
             feederpower = -0.15;
         }
-            else {
+        else {
             feederpower = 0; 
         }
         feeder.set(ControlMode.PercentOutput, feederpower);

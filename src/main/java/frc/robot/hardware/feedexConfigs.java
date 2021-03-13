@@ -15,6 +15,6 @@ public class feedexConfigs {
         TalonFXConfiguration feederConfigs = new TalonFXConfiguration();
 
         feeder.configAllSettings(feederConfigs);
-        feeder.setInverted(true);
+        feeder.setInverted(false);
     }
 }

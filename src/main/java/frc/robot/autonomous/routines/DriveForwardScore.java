@@ -41,7 +41,7 @@ public class DriveForwardScore implements IRoutine {
                     HEADING_CHANGE_1 + _headingOffset,
                     DISTANCE_CHANGE_1 + _distanceOffset);
         } else if (_timer.get() < 5.0) {
-            robot.powerCellState = PCState.Discharge;
+            robot.powerCellState = PCState.Index;
         } else {
             _finished = true; /* We are finished at this point */
         }

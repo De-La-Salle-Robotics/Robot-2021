@@ -4,13 +4,27 @@ import edu.wpi.first.wpilibj.Joystick;
 
 public class RobotState {
     public enum PCState {
+        /** Collector is Up */
         WaitUp,
+        /** Collector is down */
         WaitDown,
+        /** Collector is down Intake and disturber is running */
         Suck,
+        /** Collector is up Intake is running in reverse */
         Blow,
-        Gulp,
+        /** Run the feeder to index a ball */
+        Index,
+        /** Feeder runs in reverse to remove balls from tower */
         Spit,
-        Discharge,
+    }
+
+    public enum ShooterState {
+        /** We don't want the shooter running right now */
+        Off,
+        /** We are anticipating a shot, so let's spin the flywheel up to speed */
+        PrepareShoot,
+        /** We want to shoot and we're at speed, let's shoot */
+        Shooting
     }
 
     public enum AutonState {
@@ -46,6 +60,7 @@ public class RobotState {
 
     public DTStruct driveTrainState;
     public PCState powerCellState;
+    public ShooterState shooterState;
     public AutonState routine;
 
     public boolean clearSensors;
@@ -60,6 +75,7 @@ public class RobotState {
         /* Initialize states */
         driveTrainState = new DTStruct();
         powerCellState = PCState.WaitUp;
+        shooterState = ShooterState.Off;
         routine = AutonState.AutoChanged;
 
         clearSensors = false;
@@ -83,10 +99,16 @@ public class RobotState {
             powerCellState = PCState.Blow;
             /* If we press gulp, go into gulp */
         } else if (_operator.getRawButton(5)) {
-            powerCellState = PCState.Gulp;
-            /* If we press discharge, go into discharge */
+            powerCellState = PCState.Index;
+            /* If we press shoot, try to shoot */
         } else if (_operator.getRawButton(8)) {
-            powerCellState = PCState.Discharge;
+            shooterState = ShooterState.Shooting;
+            /* If we press off, turn off shooter */
+        } else if (false) {
+            shooterState = ShooterState.Off;
+            /* If we press prepare to shoot, prepare to shoot */
+        } else if (false) {
+            shooterState = ShooterState.PrepareShoot;
             /* If we press arm up, go into waitup */
         } else if (_operator.getRawButton(2)) {
             powerCellState = PCState.WaitUp;

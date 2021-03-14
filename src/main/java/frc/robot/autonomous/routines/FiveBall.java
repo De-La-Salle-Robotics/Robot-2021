@@ -3,9 +3,9 @@ package frc.robot.autonomous.routines;
 import frc.robot.autonomous.actions.Action;
 import frc.robot.autonomous.actions.MMDrive;
 import frc.robot.autonomous.actions.MMDriveCollect;
+import frc.robot.autonomous.actions.Score;
 import frc.robot.utils.RobotState;
 import frc.robot.utils.SensorVals;
-import frc.robot.autonomous.actions.Score;
 
 public class FiveBall implements IRoutine {
     /* Distance, Heading, Time */
@@ -16,7 +16,9 @@ public class FiveBall implements IRoutine {
         new Score(4.0),
     };
 
-    public String getName() { return "Five Ball"; }
+    public String getName() {
+        return "Five Ball";
+    }
 
     public void end(RobotState robot) {
         /* Don't end in any state other than what driver wants */
@@ -36,16 +38,18 @@ public class FiveBall implements IRoutine {
         _maxNum = routines.length;
         _currentAction = 0;
     }
+
     public void start(SensorVals sensors) {
         /* Reset variables to initial settings */
         _finished = false;
-        routines[0].initialize(sensors.totalRobotDist, sensors.rawHeading);   
+        routines[0].initialize(sensors.totalRobotDist, sensors.rawHeading);
     }
+
     public void onLoop(SensorVals sensors, RobotState robot) {
         routines[_currentAction].run(robot, sensors);
-        if(routines[_currentAction].finished()) {
+        if (routines[_currentAction].finished()) {
             _currentAction++;
-            if(_currentAction == _maxNum) {
+            if (_currentAction == _maxNum) {
                 _currentAction--;
                 _finished = true;
             } else {
@@ -53,6 +57,7 @@ public class FiveBall implements IRoutine {
             }
         }
     }
+
     public boolean finished() {
         return _finished;
     }

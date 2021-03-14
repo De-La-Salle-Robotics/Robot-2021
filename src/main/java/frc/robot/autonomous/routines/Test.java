@@ -11,7 +11,9 @@ public class Test implements IRoutine {
         new MMDrive(-22000, 0, 3.0),
     };
 
-    public String getName() { return "Score And Leave"; }
+    public String getName() {
+        return "Score And Leave";
+    }
 
     public void end(RobotState robot) {
         /* Don't end in any state other than what driver wants */
@@ -31,16 +33,18 @@ public class Test implements IRoutine {
         _maxNum = routines.length;
         _currentAction = 0;
     }
+
     public void start(SensorVals sensors) {
         /* Reset variables to initial settings */
         _finished = false;
-        routines[0].initialize(sensors.totalRobotDist, sensors.rawHeading);   
+        routines[0].initialize(sensors.totalRobotDist, sensors.rawHeading);
     }
+
     public void onLoop(SensorVals sensors, RobotState robot) {
         routines[_currentAction].run(robot, sensors);
-        if(routines[_currentAction].finished()) {
+        if (routines[_currentAction].finished()) {
             _currentAction++;
-            if(_currentAction == _maxNum) {
+            if (_currentAction == _maxNum) {
                 _currentAction--;
                 _finished = true;
             } else {
@@ -48,6 +52,7 @@ public class Test implements IRoutine {
             }
         }
     }
+
     public boolean finished() {
         return _finished;
     }

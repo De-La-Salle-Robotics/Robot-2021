@@ -2,9 +2,9 @@ package frc.robot.autonomous.actions;
 
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.utils.RobotState;
-import frc.robot.utils.SensorVals;
 import frc.robot.utils.RobotState.DriveTrainState;
 import frc.robot.utils.RobotState.PCState;
+import frc.robot.utils.SensorVals;
 
 public class MMDriveCollect implements Action {
     private double _forward;
@@ -26,6 +26,7 @@ public class MMDriveCollect implements Action {
     public double distElapsed() {
         return _startDist + _forward;
     }
+
     public double headingElapsed() {
         return _startHead + _heading;
     }
@@ -42,7 +43,8 @@ public class MMDriveCollect implements Action {
     }
 
     public void run(RobotState state, SensorVals sensors) {
-        state.driveTrainState.set(DriveTrainState.MotionMagic, _startHead + _heading, _startDist + _forward);
+        state.driveTrainState.set(
+                DriveTrainState.MotionMagic, _startHead + _heading, _startDist + _forward);
         state.powerCellState = PCState.Suck;
     }
 

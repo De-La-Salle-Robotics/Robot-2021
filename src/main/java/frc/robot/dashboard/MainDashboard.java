@@ -4,8 +4,10 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.autonomous.AutonomousManager;
+import frc.robot.utils.RobotState;
 import frc.robot.utils.SensorVals;
-import frc.robot.utils.RobotState;;
+
+;
 
 public class MainDashboard extends Thread {
     SensorVals _sensors;
@@ -14,7 +16,8 @@ public class MainDashboard extends Thread {
 
     private boolean _runThread;
 
-    public MainDashboard(SensorVals sensors, RobotState robotState, AutonomousManager autonomousManager) {
+    public MainDashboard(
+            SensorVals sensors, RobotState robotState, AutonomousManager autonomousManager) {
         _sensors = sensors;
         _robotState = robotState;
         _autoManager = autonomousManager;

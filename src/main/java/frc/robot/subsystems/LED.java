@@ -4,10 +4,9 @@ import com.ctre.phoenix.CANifier;
 import com.ctre.phoenix.CANifier.LEDChannel;
 
 public class LED {
-    /**
-     * Add some Constants for our colors
-     */
+    /** Add some Constants for our colors */
     public final Color RED = new Color(140, 232, 21);
+
     public final Color GREEN = new Color(255, 111, 16);
     public final Color BLUE = new Color(0, 0, 1);
 
@@ -17,6 +16,7 @@ public class LED {
             greenVal = green;
             blueVal = blue;
         }
+
         double redVal;
         double greenVal;
         double blueVal;
@@ -33,5 +33,4 @@ public class LED {
         ledController.setLEDOutput(color.greenVal, LEDChannel.LEDChannelA);
         ledController.setLEDOutput(color.blueVal, LEDChannel.LEDChannelC);
     }
-
 }

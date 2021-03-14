@@ -1,23 +1,55 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Limelight {
-    //NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
-//NetworkTableEntry tx = table.getEntry("tx");
-//NetworkTableEntry ty = table.getEntry("ty");
-//NetworkTableEntry ta = table.getEntry("ta");
+    NetworkTable table;
 
-//read values periodically
-//double x = tx.getDouble(0.0);
-//double y = ty.getDouble(0.0);
-//double area = ta.getDouble(0.0);
+    NetworkTableEntry tx;
+    NetworkTableEntry ty;
+    NetworkTableEntry ta;
 
-//post to smart dashboard periodically
-//*SmartDashboard.putNumber("LimelightX", x);
-//SmartDashboard.putNumber("LimelightY", y);
-//SmartDashboard.putNumber("LimelightArea", area)
+    double targetX;
+    double targetY;
+    double targetArea;
+
+    public class LimelightTarget {
+        public double x;
+        public double y;
+        public double area;
+
+        public LimelightTarget(double x, double y, double area) {
+            this.x = x;
+            this.y = y;
+            this.area = area;
+        }
+    }
+
+    public Limelight() {
+        /* Just assuming that this is correct */
+        table = NetworkTableInstance.getDefault().getTable("limelight");
+        tx = table.getEntry("tx");
+        ty = table.getEntry("ty");
+        ta = table.getEntry("ta");
+    }
+
+    public void update() {
+
+        // read values periodically
+        targetX = tx.getDouble(0.0);
+        targetY = ty.getDouble(0.0);
+        targetArea = ta.getDouble(0.0);
+
+        // post to smart dashboard periodically
+        SmartDashboard.putNumber("LimelightX", targetX);
+        SmartDashboard.putNumber("LimelightY", targetY);
+        SmartDashboard.putNumber("LimelightArea", targetArea);
+    }
+
+    public LimelightTarget getTarget() {
+        return new LimelightTarget(targetX, targetY, targetArea);
+    }
 }

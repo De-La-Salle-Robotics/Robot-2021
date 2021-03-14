@@ -1,16 +1,16 @@
 package frc.robot.hardware;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
-import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.sensors.PigeonIMU;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-
 
 public class RightDrivetrainConfigs {
 
-    public static void configSide(TalonFX master, TalonFX slave, TalonFX leftMaster, PigeonIMU pigeon) {
+    public static void configSide(
+            TalonFX master, TalonFX slave, TalonFX leftMaster, PigeonIMU pigeon) {
         TalonFXConfiguration masterConfigs = new TalonFXConfiguration();
 
         masterConfigs.slot0.kP = 2;

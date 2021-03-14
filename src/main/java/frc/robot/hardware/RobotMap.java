@@ -1,10 +1,8 @@
 package frc.robot.hardware;
 
-import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.*;
-import com.ctre.phoenix.sensors.PigeonIMU;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
-
+import com.ctre.phoenix.sensors.PigeonIMU;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.subsystems.Limelight;
@@ -43,7 +41,7 @@ public class RobotMap {
         intake = new TalonSRX(6);
 
         spinner = new VictorSPX(7);
-        
+
         feeder = new TalonFX(4);
         flywheel = new TalonFX(5);
 

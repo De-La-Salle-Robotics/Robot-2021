@@ -1,17 +1,13 @@
 package frc.robot;
 
 import edu.wpi.cscore.UsbCamera;
-import edu.wpi.cscore.VideoSource;
-
-//import edu.wpi.cscore.UsbCamera;
-
 import edu.wpi.first.cameraserver.CameraServer;
 import frc.robot.autonomous.AutonomousManager;
 import frc.robot.dashboard.MainDashboard;
 import frc.robot.hardware.RobotMap;
 import frc.robot.subsystems.*;
 import frc.robot.utils.RobotState;
-import frc.robot.utils.SensorVals; 
+import frc.robot.utils.SensorVals;
 
 public class FortKnox {
     public enum FortKnoxState {
@@ -20,6 +16,7 @@ public class FortKnox {
         Autonomous,
         Test,
     };
+
     private FortKnoxState _currentState;
 
     private Drivetrain _drivetrain;
@@ -27,7 +24,7 @@ public class FortKnox {
     private Feeder _feeder;
     private Intake _intake;
     private Arm _arm;
-    
+
     private Flywheel _flywheel;
 
     private Limelight _limelight;
@@ -38,6 +35,7 @@ public class FortKnox {
 
     private RobotState _robot;
     private SensorVals _sensors;
+
     public FortKnox() {
         RobotMap.initialize();
 
@@ -52,10 +50,10 @@ public class FortKnox {
         _intake = new Intake(RobotMap.intake);
         _arm = new Arm(RobotMap.arm);
         _limelight = new Limelight();
-    
+
         _robot = new RobotState(RobotMap.driverJoystick, RobotMap.operatorJoystick);
         _sensors = new SensorVals(RobotMap.leftMaster, RobotMap.rightMaster, RobotMap.pidgey);
-        
+
         _autoManager = new AutonomousManager();
 
         _dashboard = new MainDashboard(_sensors, _robot, _autoManager);
@@ -63,12 +61,14 @@ public class FortKnox {
         _currentState = FortKnoxState.Disabled;
         _dashboard.start();
     }
-    public void periodicTasks(){
+
+    public void periodicTasks() {
         _robot.getJoystickValues();
         _sensors.getSensorValues();
 
-        switch(_currentState)
-        {
+        _limelight.update();
+
+        switch (_currentState) {
             case Autonomous:
                 /* Run autonomous stuff here */
                 /* _robot state will be overwritten by auto */
@@ -85,12 +85,12 @@ public class FortKnox {
                 _autoManager.updateRoutines(_robot);
                 _flywheel.flywheelControl(_robot);
                 break;
-                
+
             case Test:
                 /* Test does its own stuff */
                 break;
         }
-        if(_currentState == FortKnoxState.Disabled) {
+        if (_currentState == FortKnoxState.Disabled) {
             _autoManager.resetAuto();
         }
     }
@@ -99,4 +99,3 @@ public class FortKnox {
         _currentState = newState;
     }
 }
-

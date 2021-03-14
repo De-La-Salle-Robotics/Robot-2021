@@ -9,12 +9,14 @@ import frc.robot.utils.SensorVals;
 public class TestCenterScore implements IRoutine {
     /* Distance, Heading, Time */
     private Action[] routines = {
-        new MMDrive(-11000, -60 , 2.0), // Drive towards Goal
-        new MMDrive(-16500, 60 , 3.0), // Line up to goal
+        new MMDrive(-11000, -60, 2.0), // Drive towards Goal
+        new MMDrive(-16500, 60, 3.0), // Line up to goal
         new Score(1), // Shoot Powercells
     };
 
-    public String getName() { return "Test Center Score"; }
+    public String getName() {
+        return "Test Center Score";
+    }
 
     public void end(RobotState robot) {
         /* Don't end in any state other than what driver wants */
@@ -34,16 +36,18 @@ public class TestCenterScore implements IRoutine {
         _maxNum = routines.length;
         _currentAction = 0;
     }
+
     public void start(SensorVals sensors) {
         /* Reset variables to initial settings */
         _finished = false;
-        routines[0].initialize(sensors.totalRobotDist, sensors.rawHeading);   
+        routines[0].initialize(sensors.totalRobotDist, sensors.rawHeading);
     }
+
     public void onLoop(SensorVals sensors, RobotState robot) {
         routines[_currentAction].run(robot, sensors);
-        if(routines[_currentAction].finished()) {
+        if (routines[_currentAction].finished()) {
             _currentAction++;
-            if(_currentAction == _maxNum) {
+            if (_currentAction == _maxNum) {
                 _currentAction--;
                 _finished = true;
             } else {
@@ -51,6 +55,7 @@ public class TestCenterScore implements IRoutine {
             }
         }
     }
+
     public boolean finished() {
         return _finished;
     }

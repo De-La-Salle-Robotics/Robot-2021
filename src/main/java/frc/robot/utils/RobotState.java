@@ -100,15 +100,6 @@ public class RobotState {
             /* If we press gulp, go into gulp */
         } else if (_operator.getRawButton(5)) {
             powerCellState = PCState.Index;
-            /* If we press shoot, try to shoot */
-        } else if (_operator.getRawButton(8)) {
-            shooterState = ShooterState.Shooting;
-            /* If we press off, turn off shooter */
-        } else if (false) {
-            shooterState = ShooterState.Off;
-            /* If we press prepare to shoot, prepare to shoot */
-        } else if (false) {
-            shooterState = ShooterState.PrepareShoot;
             /* If we press arm up, go into waitup */
         } else if (_operator.getRawButton(2)) {
             powerCellState = PCState.WaitUp;
@@ -120,6 +111,29 @@ public class RobotState {
                 /* Otherwise keep the arm up */
             } else {
                 powerCellState = PCState.WaitUp;
+            }
+        }
+
+        /** If we press shoot, try to shoot */
+        if (_operator.getRawButton(8)) {
+            shooterState = ShooterState.Shooting;
+        } else {
+            /**
+            * If we don't have the shoot button pressed, we need to be either off or prepare shoot First
+            * check if we pressed a button to go into either state
+            */
+            if (false) {
+                shooterState = ShooterState.Off;
+            } else if (false) {
+                shooterState = ShooterState.PrepareShoot;
+            } else {
+                /**
+                * If neither is pressed, check what state we're in If we're shooting, transition to
+                * prepareshoot Otherwise just stay whatever we are.
+                */
+                if (shooterState == ShooterState.Shooting) {
+                    shooterState = ShooterState.PrepareShoot;
+                }
             }
         }
 

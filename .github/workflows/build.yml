@@ -21,3 +21,15 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
+
+  verify-format:
+
+    runs-on: ubuntu-latest
+    container: wpilib/roborio-cross-ubuntu:2021-18.04
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+    - name: Check the format passes
+      run: ./gradlew spotlessCheck

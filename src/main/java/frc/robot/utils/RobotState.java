@@ -4,10 +4,8 @@ import edu.wpi.first.wpilibj.Joystick;
 
 public class RobotState {
     public enum PCState {
-        /** Collector is Up */
-        WaitUp,
-        /** Collector is down */
-        WaitDown,
+        /** Not doing anything */
+        Wait,
         /** Collector is down Intake and disturber is running */
         Suck,
         /** Collector is up Intake is running in reverse */
@@ -16,6 +14,11 @@ public class RobotState {
         Index,
         /** Feeder runs in reverse to remove balls from tower */
         Spit,
+    }
+
+    public enum ArmState {
+        Up,
+        Down
     }
 
     public enum ShooterState {
@@ -62,6 +65,7 @@ public class RobotState {
     public PCState powerCellState;
     public ShooterState shooterState;
     public AutonState routine;
+    public ArmState armState;
 
     public boolean clearSensors;
 
@@ -74,7 +78,7 @@ public class RobotState {
 
         /* Initialize states */
         driveTrainState = new DTStruct();
-        powerCellState = PCState.WaitUp;
+        powerCellState = PCState.Wait;
         shooterState = ShooterState.Off;
         routine = AutonState.AutoChanged;
 
@@ -90,28 +94,29 @@ public class RobotState {
         /* If we press arm down, go down */
         if (_operator.getRawButton(4)) {
             System.out.println("Pressed Wait Down");
-            powerCellState = PCState.WaitDown;
+            powerCellState = PCState.Wait;
+            armState = ArmState.Down;
             /* If we press suck, go into suck */
         } else if (_operator.getRawButton(7)) {
             powerCellState = PCState.Suck;
+            armState = ArmState.Down;
             /* If we press blow, go into blow */
         } else if (_operator.getRawButton(3)) {
             powerCellState = PCState.Blow;
+            armState = ArmState.Up;
             /* If we press gulp, go into gulp */
-        } else if (_operator.getRawButton(5)) {
+        } else if (_operator.getRawButton(6)) {
             powerCellState = PCState.Index;
             /* If we press arm up, go into waitup */
         } else if (_operator.getRawButton(2)) {
-            powerCellState = PCState.WaitUp;
+            powerCellState = PCState.Wait;
+            armState = ArmState.Up;
             /* If we didn't press anything, go into wait based on last state */
+        } else if (_operator.getRawButton(5)) {
+            powerCellState = PCState.Spit;
+            armState = ArmState.Up;
         } else {
-            /* If we were last sucking or waiting down, stay down */
-            if (powerCellState == PCState.Suck || powerCellState == PCState.WaitDown) {
-                powerCellState = PCState.WaitDown;
-                /* Otherwise keep the arm up */
-            } else {
-                powerCellState = PCState.WaitUp;
-            }
+            powerCellState = PCState.Wait;
         }
 
         /** If we press shoot, try to shoot */
@@ -122,9 +127,9 @@ public class RobotState {
             * If we don't have the shoot button pressed, we need to be either off or prepare shoot First
             * check if we pressed a button to go into either state
             */
-            if (false) {
+            if (_operator.getRawButton(10)) {
                 shooterState = ShooterState.Off;
-            } else if (false) {
+            } else if (_operator.getRawButton(1)) {
                 shooterState = ShooterState.PrepareShoot;
             } else {
                 /**

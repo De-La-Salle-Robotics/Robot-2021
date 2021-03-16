@@ -69,7 +69,7 @@ public class CenterScore implements IRoutine {
 
     public void end(RobotState robot) {
         robot.driveTrainState.set(DriveTrainState.PercentOut, 0, 0);
-        robot.powerCellState = PCState.WaitUp;
+        robot.powerCellState = PCState.Wait;
     }
 
     public boolean finished() {

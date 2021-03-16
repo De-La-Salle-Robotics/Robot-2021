@@ -17,14 +17,10 @@ public class Arm {
     }
 
     public void armControl(RobotState joysticks) {
-        if (joysticks.powerCellState == PCState.Wait
-                || joysticks.powerCellState == PCState.Blow
-                || joysticks.armState == ArmState.Up) {
-            _armState = Value.kForward;
-        } else if (joysticks.powerCellState == PCState.Wait
-                || joysticks.powerCellState == PCState.Suck
-                || joysticks.armState == ArmState.Down) {
+        if   ( joysticks.armState == ArmState.Up) {
             _armState = Value.kReverse;
+        } else if ( joysticks.armState == ArmState.Down) {
+            _armState = Value.kForward;
         }
         _arm.set(_armState);
     }

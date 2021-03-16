@@ -7,7 +7,7 @@ import frc.robot.utils.RobotState.PCState;
 import frc.robot.utils.RobotState.ShooterState;
 
 public class Flywheel {
-    private final double flywheelThreshold = 20785;
+    private final double flywheelThreshold = 19800;
     public TalonFX flywheel;
     public TalonFX feeder;
 

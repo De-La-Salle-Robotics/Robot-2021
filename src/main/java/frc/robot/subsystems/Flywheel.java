@@ -8,7 +8,11 @@ import frc.robot.utils.RobotState.PCState;
 import frc.robot.utils.RobotState.ShooterState;
 
 public class Flywheel {
-    private final double flywheelThreshold = 20450;
+    private final double flywheelThreshold = 100;
+    private final double redZone = 18700;
+    private final double blueZone = 18200;
+    private final double yellowZone = 18200;
+    private final double greenZone = 18200;
     private final double indexTimeLength = 0.0;
     private final double indexPowerForward = 0.35;
     private final double indexPowerReverse = -0.15;
@@ -36,7 +40,21 @@ public class Flywheel {
         */
         if (joysticks.shooterState == ShooterState.PrepareShoot
                 || joysticks.shooterState == ShooterState.Shooting) {
-            flywheelpower = 1;
+            switch(joysticks.shooterSpeed)
+            { 
+                case GreenZone:
+                    flywheelpower = greenZone;
+                    break;
+                case YellowZone:
+                    flywheelpower = yellowZone;
+                    break;
+                case BlueZone:
+                    flywheelpower = blueZone;
+                    break;
+                case RedZone:
+                    flywheelpower = redZone;
+                    break;
+            }
         } else {
             flywheelpower = 0;
         }
@@ -61,7 +79,7 @@ public class Flywheel {
         } else if (joysticks.powerCellState == PCState.Spit) {
             feederpower = indexPowerReverse;
         } else if (joysticks.shooterState == ShooterState.Shooting
-                && flywheel.getSelectedSensorVelocity() > flywheelThreshold) {
+                && flywheel.getSelectedSensorVelocity() > (flywheelpower - flywheelThreshold)) {
             feederpower = indexPowerForward;
         } else {
             feederpower = 0;
@@ -69,6 +87,12 @@ public class Flywheel {
         lastState = joysticks.powerCellState;
 
         feeder.set(ControlMode.PercentOutput, feederpower);
-        flywheel.set(ControlMode.PercentOutput, flywheelpower);
+        /* If flywheel is at 0, just disable the flywheel */
+        if(flywheelpower == 0) {
+            flywheel.neutralOutput();
+        } else {
+            /* Set it to the specified velocity */
+            flywheel.set(ControlMode.Velocity, flywheelpower);
+        }
     }
 }

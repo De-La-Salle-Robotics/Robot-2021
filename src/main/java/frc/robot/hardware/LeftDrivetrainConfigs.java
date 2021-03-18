@@ -6,9 +6,15 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 
 public class LeftDrivetrainConfigs {
+    private final static double statorlimit = 50;
 
     public static void configSide(TalonFX master, TalonFX slave) {
         TalonFXConfiguration masterConfigs = new TalonFXConfiguration();
+
+        masterConfigs.statorCurrLimit.currentLimit = statorlimit;
+        masterConfigs.statorCurrLimit.enable = true;
+        masterConfigs.statorCurrLimit.triggerThresholdCurrent = statorlimit;
+        masterConfigs.statorCurrLimit.triggerThresholdTime = 0;
 
         master.configAllSettings(masterConfigs);
         master.setInverted(false);
@@ -16,6 +22,11 @@ public class LeftDrivetrainConfigs {
         master.setSensorPhase(true);
 
         TalonFXConfiguration slaveConfigs = new TalonFXConfiguration();
+
+        slaveConfigs.statorCurrLimit.currentLimit = statorlimit;
+        slaveConfigs.statorCurrLimit.enable = true;
+        slaveConfigs.statorCurrLimit.triggerThresholdCurrent = statorlimit;
+        slaveConfigs.statorCurrLimit.triggerThresholdTime = 0;
 
         slave.configAllSettings(slaveConfigs);
 

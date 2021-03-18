@@ -7,7 +7,7 @@ import frc.robot.utils.RobotState.PCState;
 import frc.robot.utils.RobotState.ShooterState;
 
 public class Flywheel {
-    private final double flywheelThreshold = 19800;
+    private final double flywheelThreshold = 20450;
     public TalonFX flywheel;
     public TalonFX feeder;
 
@@ -33,12 +33,12 @@ public class Flywheel {
         }
 
         if (joysticks.powerCellState == PCState.Index) {
-            feederpower = 0.15;
+            feederpower = 0.35;
         } else if (joysticks.powerCellState == PCState.Spit) {
             feederpower = -0.15;
         } else if (joysticks.shooterState == ShooterState.Shooting
                 && flywheel.getSelectedSensorVelocity() > flywheelThreshold) {
-            feederpower = 0.15;
+            feederpower = 0.35;
         } else {
             feederpower = 0;
         }

@@ -10,6 +10,8 @@ import frc.robot.utils.RobotState.ShooterState;
 public class Flywheel {
     private final double flywheelThreshold = 20450;
     private final double indexTimeLength = 0.0;
+    private final double indexPowerForward = 0.35;
+    private final double indexPowerReverse = -0.15;
     private StopWatch stopWatch;
     private PCState lastState;
 
@@ -43,24 +45,24 @@ public class Flywheel {
         if (lastState != PCState.SingleIndex && joysticks.powerCellState == PCState.SingleIndex) {
             /* We just started, let's clear the timer and wait */
             stopWatch.start();
-            feederpower = 0.35;
+            feederpower = indexPowerForward;
         } else if (joysticks.powerCellState == PCState.SingleIndex) {
             /* We're currently single-indexing */
             /* We need to wait for indexTimeLength time before we stop */
             if (stopWatch.getDuration() > indexTimeLength) {
                 /* Still run, we aren't done yet */
-                feederpower = 0.35;
+                feederpower = indexPowerForward;
             } else {
                 /* It's been enough time, let's stop */
                 feederpower = 0;
             }
         } else if (joysticks.powerCellState == PCState.Index) {
-            feederpower = 0.35;
+            feederpower = indexPowerForward;
         } else if (joysticks.powerCellState == PCState.Spit) {
-            feederpower = -0.15;
+            feederpower = indexPowerReverse;
         } else if (joysticks.shooterState == ShooterState.Shooting
                 && flywheel.getSelectedSensorVelocity() > flywheelThreshold) {
-            feederpower = 0.35;
+            feederpower = indexPowerForward;
         } else {
             feederpower = 0;
         }

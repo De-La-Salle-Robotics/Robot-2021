@@ -14,6 +14,8 @@ public class RobotState {
         Index,
         /** Feeder runs in reverse to remove balls from tower */
         Spit,
+        /** Index a single ball */
+        SingleIndex
     }
 
     public enum ArmState {
@@ -107,6 +109,9 @@ public class RobotState {
             /* If we press gulp, go into gulp */
         } else if (_operator.getRawButton(6)) {
             powerCellState = PCState.Index;
+            /* If we press singleindex, single index */
+        } else if (false) {
+            powerCellState = PCState.SingleIndex;
             /* If we press arm up, go into waitup */
         } else if (_operator.getRawButton(2)) {
             powerCellState = PCState.Wait;

@@ -2,18 +2,25 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.time.StopWatch;
 import frc.robot.utils.RobotState;
 import frc.robot.utils.RobotState.PCState;
 import frc.robot.utils.RobotState.ShooterState;
 
 public class Flywheel {
     private final double flywheelThreshold = 20450;
+    private final double indexTimeLength = 0.0;
+    private StopWatch stopWatch;
+    private PCState lastState;
+
     public TalonFX flywheel;
     public TalonFX feeder;
 
     public Flywheel(TalonFX flywheel, TalonFX feeder) {
         this.flywheel = flywheel;
         this.feeder = feeder;
+        lastState = PCState.Wait;
+        stopWatch = new StopWatch();
     }
 
     public void flywheelControl(RobotState joysticks) {
@@ -32,7 +39,22 @@ public class Flywheel {
             flywheelpower = 0;
         }
 
-        if (joysticks.powerCellState == PCState.Index) {
+        /* If we are single-indexing, check to see if we just started single-indexing */
+        if (lastState != PCState.SingleIndex && joysticks.powerCellState == PCState.SingleIndex) {
+            /* We just started, let's clear the timer and wait */
+            stopWatch.start();
+            feederpower = 0.35;
+        } else if (joysticks.powerCellState == PCState.SingleIndex) {
+            /* We're currently single-indexing */
+            /* We need to wait for indexTimeLength time before we stop */
+            if (stopWatch.getDuration() > indexTimeLength) {
+                /* Still run, we aren't done yet */
+                feederpower = 0.35;
+            } else {
+                /* It's been enough time, let's stop */
+                feederpower = 0;
+            }
+        } else if (joysticks.powerCellState == PCState.Index) {
             feederpower = 0.35;
         } else if (joysticks.powerCellState == PCState.Spit) {
             feederpower = -0.15;
@@ -42,6 +64,7 @@ public class Flywheel {
         } else {
             feederpower = 0;
         }
+        lastState = joysticks.powerCellState;
 
         feeder.set(ControlMode.PercentOutput, feederpower);
         flywheel.set(ControlMode.PercentOutput, flywheelpower);

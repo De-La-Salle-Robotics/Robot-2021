@@ -8,7 +8,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.sensors.PigeonIMU;
 
 public class RightDrivetrainConfigs {
-    private final static double statorlimit = 50;
+    private static final double statorlimit = 50;
 
     public static void configSide(
             TalonFX master, TalonFX slave, TalonFX leftMaster, PigeonIMU pigeon) {

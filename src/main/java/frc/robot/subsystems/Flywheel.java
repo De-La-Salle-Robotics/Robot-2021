@@ -40,8 +40,7 @@ public class Flywheel {
         */
         if (joysticks.shooterState == ShooterState.PrepareShoot
                 || joysticks.shooterState == ShooterState.Shooting) {
-            switch(joysticks.shooterSpeed)
-            { 
+            switch (joysticks.shooterSpeed) {
                 case GreenZone:
                     flywheelpower = greenZone;
                     break;
@@ -88,7 +87,7 @@ public class Flywheel {
 
         feeder.set(ControlMode.PercentOutput, feederpower);
         /* If flywheel is at 0, just disable the flywheel */
-        if(flywheelpower == 0) {
+        if (flywheelpower == 0) {
             flywheel.neutralOutput();
         } else {
             /* Set it to the specified velocity */

@@ -31,6 +31,7 @@ public class RobotState {
         /** We want to shoot and we're at speed, let's shoot */
         Shooting
     }
+
     public enum ShooterSpeed {
         GreenZone,
         YellowZone,
@@ -98,7 +99,7 @@ public class RobotState {
     public void getJoystickValues() {
         /* Drive base */
         double ratio;
-        if(_driver.getRawButton(6)) {
+        if (_driver.getRawButton(6)) {
             ratio = 0.2;
         } else {
             ratio = 0.4;
@@ -109,11 +110,11 @@ public class RobotState {
         double leftSide = throt + wheel;
         double rightSide = throt - wheel;
 
-        if(Math.abs(leftSide) > 1) {
+        if (Math.abs(leftSide) > 1) {
             rightSide /= Math.abs(leftSide);
             leftSide /= Math.abs(leftSide);
         }
-        if(Math.abs(rightSide) > 1) {
+        if (Math.abs(rightSide) > 1) {
             leftSide /= Math.abs(rightSide);
             rightSide /= Math.abs(rightSide);
         }
@@ -137,8 +138,7 @@ public class RobotState {
 
         driveTrainState.set(DriveTrainState.PercentOut, leftSide, rightSide);
 
-        switch(_operator.getPOV())
-        {
+        switch (_operator.getPOV()) {
             case 90:
                 shooterSpeed = ShooterSpeed.GreenZone;
                 break;
@@ -147,7 +147,7 @@ public class RobotState {
                 break;
             case 270:
                 shooterSpeed = ShooterSpeed.BlueZone;
-                break;   
+                break;
             case 0:
                 shooterSpeed = ShooterSpeed.RedZone;
                 break;

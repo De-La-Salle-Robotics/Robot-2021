@@ -11,7 +11,7 @@ public class FlywheelConfigs {
         configuration.slot0.kF = 0.05f;
         configuration.velocityMeasurementPeriod = VelocityMeasPeriod.Period_10Ms;
         configuration.velocityMeasurementWindow = 32;
-        
+
         flywheel.configAllSettings(configuration);
     }
 }

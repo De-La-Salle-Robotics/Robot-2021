@@ -6,7 +6,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 
 public class LeftDrivetrainConfigs {
-    private final static double statorlimit = 50;
+    private static final double statorlimit = 50;
 
     public static void configSide(TalonFX master, TalonFX slave) {
         TalonFXConfiguration masterConfigs = new TalonFXConfiguration();

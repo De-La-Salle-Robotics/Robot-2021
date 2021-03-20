@@ -82,6 +82,37 @@ public class RobotState {
     private Joystick _driver;
     private Joystick _operator;
 
+    private class PowerCellStateButton {
+        public int buttonNumber;
+        public PCState pState;
+        public ArmState aState;
+
+        public PowerCellStateButton(int b, PCState p, ArmState a) {
+            buttonNumber = b;
+            pState = p;
+            aState = a;
+        }
+    }
+
+    private final PowerCellStateButton[] powerCellStateButtonList =
+            new PowerCellStateButton[] {
+                /* Arm Up */
+                new PowerCellStateButton(2, PCState.Wait, ArmState.Up),
+                /* Blow */
+                new PowerCellStateButton(3, PCState.Blow, ArmState.Up),
+                /* Arm Down */
+                new PowerCellStateButton(4, PCState.Wait, ArmState.Down),
+                /* Spit */
+                new PowerCellStateButton(5, PCState.Spit, ArmState.Up),
+                /* Continuous Index */
+                new PowerCellStateButton(6, PCState.Index, null),
+                /* Suck */
+                new PowerCellStateButton(7, PCState.Suck, ArmState.Down),
+                /* Single Index */
+                new PowerCellStateButton(-1, PCState.SingleIndex, null)
+            };
+    private final PowerCellStateButton defaultState = new PowerCellStateButton(0, PCState.Wait, null);
+
     public RobotState(Joystick driver, Joystick operator) {
         _driver = driver;
         _operator = operator;
@@ -138,6 +169,7 @@ public class RobotState {
 
         driveTrainState.set(DriveTrainState.PercentOut, leftSide, rightSide);
 
+        /* Shooter Speed Handler */
         switch (_operator.getPOV()) {
             case 90:
                 shooterSpeed = ShooterSpeed.GreenZone;
@@ -153,35 +185,21 @@ public class RobotState {
                 break;
         }
 
-        /* If we press arm down, go down */
-        if (_operator.getRawButton(4)) {
-            System.out.println("Pressed Wait Down");
-            powerCellState = PCState.Wait;
-            armState = ArmState.Down;
-            /* If we press suck, go into suck */
-        } else if (_operator.getRawButton(7)) {
-            powerCellState = PCState.Suck;
-            armState = ArmState.Down;
-            /* If we press blow, go into blow */
-        } else if (_operator.getRawButton(3)) {
-            powerCellState = PCState.Blow;
-            armState = ArmState.Up;
-            /* If we press gulp, go into gulp */
-        } else if (_operator.getRawButton(6)) {
-            powerCellState = PCState.Index;
-            /* If we press singleindex, single index */
-        } else if (false) {
-            powerCellState = PCState.SingleIndex;
-            /* If we press arm up, go into waitup */
-        } else if (_operator.getRawButton(2)) {
-            powerCellState = PCState.Wait;
-            armState = ArmState.Up;
-            /* If we didn't press anything, go into wait based on last state */
-        } else if (_operator.getRawButton(5)) {
-            powerCellState = PCState.Spit;
-            armState = ArmState.Up;
-        } else {
-            powerCellState = PCState.Wait;
+        /* Powercell State Handler */
+        powerCellState = defaultState.pState;
+        /* Assume we're in default state for now */
+        if (defaultState.aState != null) {
+            armState = defaultState.aState;
+        }
+        /* Check every possible we can be in, if we pressed the button go into that state */
+        for (PowerCellStateButton stateButton : powerCellStateButtonList) {
+            if (_operator.getRawButton(stateButton.buttonNumber)) {
+                powerCellState = stateButton.pState;
+                if (stateButton.aState != null) {
+                    armState = stateButton.aState;
+                }
+                break;
+            }
         }
 
         /** If we press shoot, try to shoot */

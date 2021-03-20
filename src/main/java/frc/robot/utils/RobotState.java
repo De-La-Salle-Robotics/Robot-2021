@@ -50,6 +50,7 @@ public class RobotState {
         PercentOut,
         Position,
         MotionMagic,
+        AlignToTarget,
     }
 
     public class DTStruct {
@@ -136,8 +137,8 @@ public class RobotState {
             ratio = 0.4;
         }
 
-        double throt = -_driver.getRawAxis(1);
-        double wheel = _driver.getRawAxis(4) * ratio; /* Throttle is negated */
+        double throt = -_driver.getRawAxis(1); /* Throttle is negated */
+        double wheel = _driver.getRawAxis(4) * ratio;
         double leftSide = throt + wheel;
         double rightSide = throt - wheel;
 
@@ -150,24 +151,11 @@ public class RobotState {
             rightSide /= Math.abs(rightSide);
         }
 
-        // if(leftSide > 1) {
-        //     rightSide -= (leftSide - 1);
-        //     leftSide = 1;
-        // }
-        // if(leftSide < -1) {
-        //     rightSide -= (leftSide + 1);
-        //     leftSide = -1;
-        // }
-        // if(rightSide > 1) {
-        //     leftSide -= (rightSide - 1);
-        //     rightSide = 1;
-        // }
-        // if(rightSide < -1) {
-        //     leftSide -= (rightSide + 1);
-        //     rightSide = -1;
-        // }
-
-        driveTrainState.set(DriveTrainState.PercentOut, leftSide, rightSide);
+        if (_driver.getRawButton(5)) {
+            driveTrainState.set(DriveTrainState.AlignToTarget, 0, 0);
+        } else {
+            driveTrainState.set(DriveTrainState.PercentOut, leftSide, rightSide);
+        }
 
         /* Shooter Speed Handler */
         switch (_operator.getPOV()) {

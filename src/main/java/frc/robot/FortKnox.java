@@ -26,8 +26,6 @@ public class FortKnox {
 
     private Flywheel _flywheel;
 
-    private Limelight _limelight;
-
     private AutonomousManager _autoManager;
 
     private MainDashboard _dashboard;
@@ -42,19 +40,20 @@ public class FortKnox {
         src.setResolution(320, 240);
         CameraServer.getInstance().startAutomaticCapture(src);
 
-        _drivetrain = new Drivetrain(RobotMap.leftMaster, RobotMap.rightMaster, RobotMap.pidgey);
+        _drivetrain =
+                new Drivetrain(
+                        RobotMap.leftMaster, RobotMap.rightMaster, RobotMap.pidgey, RobotMap.limelight);
         _spinner = new Spinner(RobotMap.spinner);
         _flywheel = new Flywheel(RobotMap.flywheel, RobotMap.feeder);
         _intake = new Intake(RobotMap.intake);
         _arm = new Arm(RobotMap.arm);
-        _limelight = new Limelight();
 
         _robot = new RobotState(RobotMap.driverJoystick, RobotMap.operatorJoystick);
         _sensors = new SensorVals(RobotMap.leftMaster, RobotMap.rightMaster, RobotMap.pidgey);
 
         _autoManager = new AutonomousManager();
 
-        _dashboard = new MainDashboard(_sensors, _robot, _autoManager, _limelight);
+        _dashboard = new MainDashboard(_sensors, _robot, _autoManager, RobotMap.limelight);
 
         _currentState = FortKnoxState.Disabled;
         _dashboard.start();
@@ -64,7 +63,7 @@ public class FortKnox {
         _robot.getJoystickValues();
         _sensors.getSensorValues();
 
-        _limelight.update();
+        RobotMap.limelight.update();
 
         switch (_currentState) {
             case Autonomous:

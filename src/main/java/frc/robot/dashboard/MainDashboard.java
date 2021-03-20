@@ -19,7 +19,10 @@ public class MainDashboard extends Thread {
     private boolean _runThread;
 
     public MainDashboard(
-            SensorVals sensors, RobotState robotState, AutonomousManager autonomousManager, Limelight limelight) {
+            SensorVals sensors,
+            RobotState robotState,
+            AutonomousManager autonomousManager,
+            Limelight limelight) {
         _sensors = sensors;
         _robotState = robotState;
         _autoManager = autonomousManager;

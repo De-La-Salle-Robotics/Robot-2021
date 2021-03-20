@@ -29,7 +29,7 @@
               "imageHeight": -1
             }
           },
-          "8,4": {
+          "1,0": {
             "size": [
               2,
               1
@@ -37,18 +37,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Limelight",
-              "_title": "SmartDashboard/Limelight"
-            }
-          },
-          "5,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Robot State",
-              "_title": "SmartDashboard/Robot State"
+              "_title": "/SmartDashboard/Limelight"
             }
           },
           "4,0": {
@@ -59,7 +48,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Auton",
-              "_title": "SmartDashboard/Auton"
+              "_title": "/SmartDashboard/Auton"
             }
           },
           "3,0": {
@@ -70,10 +59,10 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Direction",
-              "_title": "SmartDashboard/Direction"
+              "_title": "/SmartDashboard/Direction"
             }
           },
-          "4,1": {
+          "0,0": {
             "size": [
               1,
               1
@@ -81,7 +70,36 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Pigeon State",
-              "_title": "SmartDashboard/Pigeon State"
+              "_title": "/SmartDashboard/Pigeon State"
+            }
+          },
+          "0,1": {
+            "size": [
+              6,
+              3
+            ],
+            "content": {
+              "_type": "Graph",
+              "_source0": "network_table:///SmartDashboard/Flywheel Speed",
+              "_title": "SmartDashboard/Flywheel Speed",
+              "Graph/Visible time": 30.0,
+              "Graph/X-axis auto scrolling": true,
+              "Y-axis/Automatic bounds": true,
+              "Y-axis/Upper bound": 1.0,
+              "Y-axis/Lower bound": -1.0,
+              "Y-axis/Unit": "ul",
+              "Visible data/SmartDashboard/Flywheel Speed": true
+            }
+          },
+          "5,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Zone",
+              "_title": "/SmartDashboard/Zone"
             }
           }
         }

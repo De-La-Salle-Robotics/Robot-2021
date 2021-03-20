@@ -8,16 +8,18 @@ import frc.robot.utils.RobotState.PCState;
 import frc.robot.utils.RobotState.ShooterState;
 
 public class Flywheel {
-    private final double flywheelThreshold = 100;
-    private final double redZone = 18700;
-    private final double blueZone = 18200;
+    private final double flywheelMinThreshold = 50;
+    private final double flywheelMaxThreshold = 300;
+    private final double redZone = 16700;
+    private final double blueZone = 14675;
     private final double yellowZone = 18200;
-    private final double greenZone = 18200;
+    private final double greenZone = 20000;
     private final double indexTimeLength = 0.0;
-    private final double indexPowerForward = 0.35;
+    private final double indexPowerForward = 1;
     private final double indexPowerReverse = -0.15;
     private StopWatch stopWatch;
     private PCState lastState;
+    private boolean lastAutoFeed;
 
     public TalonFX flywheel;
     public TalonFX feeder;
@@ -27,6 +29,7 @@ public class Flywheel {
         this.feeder = feeder;
         lastState = PCState.Wait;
         stopWatch = new StopWatch();
+        lastAutoFeed = false;
     }
 
     public void flywheelControl(RobotState joysticks) {
@@ -58,6 +61,14 @@ public class Flywheel {
             flywheelpower = 0;
         }
 
+        boolean autoFeed;
+        if(lastAutoFeed) {
+            autoFeed = flywheel.getSelectedSensorVelocity() > (flywheelpower - flywheelMaxThreshold);
+        } else {
+            autoFeed = flywheel.getSelectedSensorVelocity() > (flywheelpower - flywheelMinThreshold);
+        }
+        lastAutoFeed = autoFeed;
+
         /* If we are single-indexing, check to see if we just started single-indexing */
         if (lastState != PCState.SingleIndex && joysticks.powerCellState == PCState.SingleIndex) {
             /* We just started, let's clear the timer and wait */
@@ -78,7 +89,7 @@ public class Flywheel {
         } else if (joysticks.powerCellState == PCState.Spit) {
             feederpower = indexPowerReverse;
         } else if (joysticks.shooterState == ShooterState.Shooting
-                && flywheel.getSelectedSensorVelocity() > (flywheelpower - flywheelThreshold)) {
+                && autoFeed) {
             feederpower = indexPowerForward;
         } else {
             feederpower = 0;

@@ -14,6 +14,11 @@ public class FeedexConfigs {
 
         TalonFXConfiguration feederConfigs = new TalonFXConfiguration();
 
+        feederConfigs.supplyCurrLimit.triggerThresholdCurrent = 35;
+        feederConfigs.supplyCurrLimit.triggerThresholdTime = 0.0;
+        feederConfigs.supplyCurrLimit.currentLimit = 35;
+        feederConfigs.supplyCurrLimit.enable = true;
+
         feeder.configAllSettings(feederConfigs);
         feeder.setInverted(false);
     }

@@ -53,6 +53,8 @@ public class MainDashboard extends Thread {
 
             /* Display Limelight Info */
             SmartDashboard.putString("Limelight", _limelight.getTarget().toString());
+            SmartDashboard.putNumber("Flywheel Speed", _sensors.flywheelSpeed);
+            SmartDashboard.putString("Zone", _robotState.shooterSpeed.toString());
 
             /* Display match information */
             SmartDashboard.putNumber("Match Time", Timer.getMatchTime());

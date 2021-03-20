@@ -1,6 +1,7 @@
 package frc.robot.utils;
 
 import edu.wpi.first.wpilibj.Joystick;
+import frc.robot.FortKnox.FortKnoxState;
 
 public class RobotState {
     public enum PCState {
@@ -128,7 +129,7 @@ public class RobotState {
         clearSensors = false;
     }
 
-    public void getJoystickValues() {
+    public void getJoystickValues(FortKnoxState robotState) {
         /* Drive base */
         double ratio;
         if (_driver.getRawButton(6)) {
@@ -198,7 +199,7 @@ public class RobotState {
             * If we don't have the shoot button pressed, we need to be either off or prepare shoot First
             * check if we pressed a button to go into either state
             */
-            if (_operator.getRawButton(10)) {
+            if (_operator.getRawButton(10) || robotState == FortKnoxState.Disabled) {
                 shooterState = ShooterState.Off;
             } else if (_operator.getRawButton(1)) {
                 shooterState = ShooterState.PrepareShoot;

@@ -2,6 +2,7 @@ package frc.robot.hardware;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.RemoteSensorSource;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
@@ -19,13 +20,23 @@ public class RightDrivetrainConfigs {
         masterConfigs.statorCurrLimit.triggerThresholdCurrent = statorlimit;
         masterConfigs.statorCurrLimit.triggerThresholdTime = 0;
 
-        masterConfigs.slot0.kP = 2;
-        masterConfigs.slot0.kD = 5;
-        masterConfigs.slot0.kF = 0.37749077490774907749077490774908;
-        masterConfigs.slot1.kP = 3;
-        masterConfigs.slot1.kD = 50;
+        masterConfigs.slot0.kP = 0;
+        masterConfigs.slot0.kD = 0;
+        masterConfigs.slot0.kF = 0.0;
 
-        masterConfigs.primaryPID.selectedFeedbackSensor = FeedbackDevice.IntegratedSensor;
+        masterConfigs.slot1.kP = 0.4;
+        masterConfigs.slot1.kI = 0.3;
+        masterConfigs.slot1.kD = 15;
+        masterConfigs.slot1.maxIntegralAccumulator = 120;
+
+        masterConfigs.remoteFilter0.remoteSensorDeviceID = leftMaster.getDeviceID();
+        masterConfigs.remoteFilter0.remoteSensorSource = RemoteSensorSource.TalonFX_SelectedSensor;
+        masterConfigs.remoteFilter1.remoteSensorDeviceID = pigeon.getDeviceID();
+        masterConfigs.remoteFilter1.remoteSensorSource = RemoteSensorSource.Pigeon_Yaw;
+        masterConfigs.diff1Term = FeedbackDevice.IntegratedSensor;
+        masterConfigs.diff0Term = FeedbackDevice.RemoteSensor0;
+        masterConfigs.primaryPID.selectedFeedbackSensor = FeedbackDevice.SensorDifference;
+        masterConfigs.auxiliaryPID.selectedFeedbackSensor = FeedbackDevice.RemoteSensor1;
 
         masterConfigs.motionCruiseVelocity = 1800;
         masterConfigs.motionAcceleration = 3000;
@@ -34,6 +45,7 @@ public class RightDrivetrainConfigs {
         master.setInverted(true);
         master.setNeutralMode(NeutralMode.Brake);
         master.setSensorPhase(true);
+        master.selectProfileSlot(0, 0);
         master.selectProfileSlot(1, 1);
 
         TalonFXConfiguration slaveConfigs = new TalonFXConfiguration();

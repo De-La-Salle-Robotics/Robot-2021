@@ -11,10 +11,11 @@ import frc.robot.utils.RobotState;
 
 public class Drivetrain {
     /* Turn pigeon native units to an angle */
-    private final double NATIVE_UNITS_TO_ANGLE = 360.0 / 8192.0;
-    private final double OUTPUT_THRESHOLD = 0.1;
+    private final double NATIVE_UNITS_TO_ANGLE = 8192.0 / 360.0;
+    private final double OUTPUT_THRESHOLD = 0.01;
     private final double LIMELIGHT_DELAY = 0.2; // !< Observed about a 200ms delay
-    private final double GOOD_ANGLE = 1; // !< We're good if we're within 1 degree
+    private final double GOOD_ANGLE = 0.4; // !< We're good if we're within 1 degree
+    private final double LOW_POWER_TIMEOUT = 0.3;
 
     private TalonFX _leftMaster;
     private TalonFX _rightMaster;
@@ -22,6 +23,7 @@ public class Drivetrain {
     private Limelight _limelight;
 
     private StopWatch _stopWatch;
+    private StopWatch _lowpowerStopWatch;
 
     private enum AlignState {
         SetAngle,
@@ -42,6 +44,7 @@ public class Drivetrain {
         _currentAlignState = AlignState.SetAngle;
         _angleToTurn = 0;
         _stopWatch = new StopWatch();
+        _lowpowerStopWatch = new StopWatch();
     }
 
     public void operate(RobotState joysticks) {
@@ -75,17 +78,23 @@ public class Drivetrain {
                         /* Find the position to stay at, and the angle to turn toward */
                         _positionToStay = _rightMaster.getSelectedSensorPosition(0);
                         _angleToTurn =
-                                (target.x * NATIVE_UNITS_TO_ANGLE) + _rightMaster.getSelectedSensorPosition(1);
+                            _rightMaster.getSelectedSensorPosition(1) - (target.x * NATIVE_UNITS_TO_ANGLE);
                         _currentAlignState = AlignState.ImuPID;
+                        _lowpowerStopWatch.start();
                         break;
                     case ImuPID:
                         _leftMaster.follow(_rightMaster, FollowerType.AuxOutput1);
                         _rightMaster.set(
                                 TalonFXControlMode.Position, _positionToStay, DemandType.AuxPID, _angleToTurn);
                         /* If our output percent is small, we're probably there */
+                        System.out.println(_lowpowerStopWatch.getDuration());
                         if (Math.abs(_rightMaster.getMotorOutputPercent()) < OUTPUT_THRESHOLD) {
-                            _currentAlignState = AlignState.Check;
-                            _stopWatch.start();
+                            if(_lowpowerStopWatch.getDuration() > LOW_POWER_TIMEOUT) {
+                                _currentAlignState = AlignState.Check;
+                                _stopWatch.start();
+                            }
+                        } else {
+                            _lowpowerStopWatch.start();
                         }
                         break;
                     case Check:
@@ -99,9 +108,8 @@ public class Drivetrain {
                                 _currentAlignState = AlignState.SetAngle;
                             }
                         }
-                        _leftMaster.follow(_rightMaster, FollowerType.AuxOutput1);
-                        _rightMaster.set(
-                                TalonFXControlMode.Position, _positionToStay, DemandType.AuxPID, _angleToTurn);
+                        _leftMaster.neutralOutput();
+                        _rightMaster.neutralOutput();
                         break;
                 }
                 break;

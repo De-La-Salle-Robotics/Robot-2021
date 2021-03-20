@@ -36,9 +36,9 @@ public class FortKnox {
     public FortKnox() {
         RobotMap.initialize();
 
-        UsbCamera src = new UsbCamera("usb0", "/dev/video0");
-        src.setResolution(320, 240);
-        CameraServer.getInstance().startAutomaticCapture(src);
+        //UsbCamera src = new UsbCamera("usb0", "/dev/video0");
+        //src.setResolution(320, 240);
+        //CameraServer.getInstance().startAutomaticCapture(src);
 
         _drivetrain =
                 new Drivetrain(
@@ -49,7 +49,7 @@ public class FortKnox {
         _arm = new Arm(RobotMap.arm);
 
         _robot = new RobotState(RobotMap.driverJoystick, RobotMap.operatorJoystick);
-        _sensors = new SensorVals(RobotMap.leftMaster, RobotMap.rightMaster, RobotMap.pidgey);
+        _sensors = new SensorVals(RobotMap.leftMaster, RobotMap.rightMaster, RobotMap.pidgey, RobotMap.flywheel);
 
         _autoManager = new AutonomousManager();
 
@@ -60,7 +60,7 @@ public class FortKnox {
     }
 
     public void periodicTasks() {
-        _robot.getJoystickValues();
+        _robot.getJoystickValues(_currentState);
         _sensors.getSensorValues();
 
         RobotMap.limelight.update();

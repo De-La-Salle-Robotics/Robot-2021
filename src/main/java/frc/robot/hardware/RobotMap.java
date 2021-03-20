@@ -61,6 +61,6 @@ public class RobotMap {
         LeftDrivetrainConfigs.configSide(leftMaster, leftSlave);
         RightDrivetrainConfigs.configSide(rightMaster, rightSlave, leftMaster, pidgey);
         FlywheelConfigs.configFlywheel(flywheel);
-        feedexConfigs.configFeedex(spinner, feeder);
+        FeedexConfigs.configFeedex(spinner, feeder);
     }
 }

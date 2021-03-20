@@ -54,7 +54,7 @@ public class FortKnox {
 
         _autoManager = new AutonomousManager();
 
-        _dashboard = new MainDashboard(_sensors, _robot, _autoManager);
+        _dashboard = new MainDashboard(_sensors, _robot, _autoManager, _limelight);
 
         _currentState = FortKnoxState.Disabled;
         _dashboard.start();

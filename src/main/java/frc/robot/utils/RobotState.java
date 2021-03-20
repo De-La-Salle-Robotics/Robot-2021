@@ -193,7 +193,7 @@ public class RobotState {
         }
         /* Check every possible we can be in, if we pressed the button go into that state */
         for (PowerCellStateButton stateButton : powerCellStateButtonList) {
-            if (_operator.getRawButton(stateButton.buttonNumber)) {
+            if (stateButton.buttonNumber > 0 && _operator.getRawButton(stateButton.buttonNumber)) {
                 powerCellState = stateButton.pState;
                 if (stateButton.aState != null) {
                     armState = stateButton.aState;

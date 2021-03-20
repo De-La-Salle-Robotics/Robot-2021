@@ -26,6 +26,11 @@ public class Limelight {
             this.y = y;
             this.area = area;
         }
+
+        @Override
+        public String toString() {
+            return "Target: " + x + " " + y + " " + ". Area: " + area;
+        }
     }
 
     public Limelight() {

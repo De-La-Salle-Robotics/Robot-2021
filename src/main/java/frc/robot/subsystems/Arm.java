@@ -3,7 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import frc.robot.utils.RobotState;
-import frc.robot.utils.RobotState.PCState;
+import frc.robot.utils.RobotState.ArmState;
 
 public class Arm {
     private DoubleSolenoid _arm;
@@ -16,10 +16,9 @@ public class Arm {
     }
 
     public void armControl(RobotState joysticks) {
-        if (joysticks.powerCellState == PCState.WaitUp || joysticks.powerCellState == PCState.Blow) {
+        if (joysticks.armState == ArmState.Up) {
             _armState = Value.kReverse;
-        } else if (joysticks.powerCellState == PCState.WaitDown
-                || joysticks.powerCellState == PCState.Suck) {
+        } else if (joysticks.armState == ArmState.Down) {
             _armState = Value.kForward;
         }
         _arm.set(_armState);

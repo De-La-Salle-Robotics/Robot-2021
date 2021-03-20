@@ -8,10 +8,16 @@ import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.sensors.PigeonIMU;
 
 public class RightDrivetrainConfigs {
+    private static final double statorlimit = 50;
 
     public static void configSide(
             TalonFX master, TalonFX slave, TalonFX leftMaster, PigeonIMU pigeon) {
         TalonFXConfiguration masterConfigs = new TalonFXConfiguration();
+
+        masterConfigs.statorCurrLimit.currentLimit = statorlimit;
+        masterConfigs.statorCurrLimit.enable = true;
+        masterConfigs.statorCurrLimit.triggerThresholdCurrent = statorlimit;
+        masterConfigs.statorCurrLimit.triggerThresholdTime = 0;
 
         masterConfigs.slot0.kP = 2;
         masterConfigs.slot0.kD = 5;
@@ -31,6 +37,11 @@ public class RightDrivetrainConfigs {
         master.selectProfileSlot(1, 1);
 
         TalonFXConfiguration slaveConfigs = new TalonFXConfiguration();
+
+        slaveConfigs.statorCurrLimit.currentLimit = statorlimit;
+        slaveConfigs.statorCurrLimit.enable = true;
+        slaveConfigs.statorCurrLimit.triggerThresholdCurrent = statorlimit;
+        slaveConfigs.statorCurrLimit.triggerThresholdTime = 0;
 
         slave.configAllSettings(slaveConfigs);
 

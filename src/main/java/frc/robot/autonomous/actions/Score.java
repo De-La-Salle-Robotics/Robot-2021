@@ -2,7 +2,7 @@ package frc.robot.autonomous.actions;
 
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.utils.RobotState;
-import frc.robot.utils.RobotState.PCState;
+import frc.robot.utils.RobotState.ShooterState;
 import frc.robot.utils.SensorVals;
 
 public class Score implements Action {
@@ -36,7 +36,7 @@ public class Score implements Action {
     }
 
     public void run(RobotState state, SensorVals sensors) {
-        state.powerCellState = PCState.Discharge;
+        state.shooterState = ShooterState.Shooting;
     }
 
     public boolean finished() {

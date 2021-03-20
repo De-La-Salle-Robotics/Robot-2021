@@ -21,7 +21,6 @@ public class FortKnox {
 
     private Drivetrain _drivetrain;
     private Spinner _spinner;
-    private Feeder _feeder;
     private Intake _intake;
     private Arm _arm;
 
@@ -45,8 +44,7 @@ public class FortKnox {
 
         _drivetrain = new Drivetrain(RobotMap.leftMaster, RobotMap.rightMaster, RobotMap.pidgey);
         _spinner = new Spinner(RobotMap.spinner);
-        _feeder = new Feeder(RobotMap.feeder);
-        _flywheel = new Flywheel(RobotMap.flywheel);
+        _flywheel = new Flywheel(RobotMap.flywheel, RobotMap.feeder);
         _intake = new Intake(RobotMap.intake);
         _arm = new Arm(RobotMap.arm);
         _limelight = new Limelight();
@@ -79,7 +77,6 @@ public class FortKnox {
                 /* Listen to joysticks and run our mechanisms */
                 _spinner.spinnerControl(_robot);
                 _intake.intakeControl(_robot);
-                _feeder.feederControl(_robot);
                 _drivetrain.operate(_robot);
                 _arm.armControl(_robot);
                 _autoManager.updateRoutines(_robot);

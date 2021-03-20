@@ -51,7 +51,7 @@ public class ScoreAndLeave implements IRoutine {
                     DISTANCE_CHANGE_1 + _distanceOffset);
             _lastState = 0;
         } else if (_timer.get() < 4.0) {
-            robot.powerCellState = PCState.Discharge;
+            robot.powerCellState = PCState.Index;
             _lastState = 1;
         } else if (_timer.get() < 6.5) {
             if (_lastState == 1) {
@@ -94,7 +94,7 @@ public class ScoreAndLeave implements IRoutine {
 
     public void end(RobotState robot) {
         robot.driveTrainState.set(DriveTrainState.PercentOut, 0, 0);
-        robot.powerCellState = PCState.WaitUp;
+        robot.powerCellState = PCState.Wait;
     }
 
     public boolean finished() {

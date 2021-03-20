@@ -35,6 +35,7 @@ public class RobotMap {
         leftSlave = new TalonFX(1);
         rightMaster = new TalonFX(2);
         rightSlave = new TalonFX(3);
+
         pidgey = new PigeonIMU(1);
 
         arm = new DoubleSolenoid(3, 2);
@@ -59,6 +60,7 @@ public class RobotMap {
     private static void configControllers() {
         LeftDrivetrainConfigs.configSide(leftMaster, leftSlave);
         RightDrivetrainConfigs.configSide(rightMaster, rightSlave, leftMaster, pidgey);
+        FlywheelConfigs.configFlywheel(flywheel);
         feedexConfigs.configFeedex(spinner, feeder);
     }
 }

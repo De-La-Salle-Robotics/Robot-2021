@@ -1,7 +1,5 @@
 package frc.robot;
 
-import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.cameraserver.CameraServer;
 import frc.robot.autonomous.AutonomousManager;
 import frc.robot.dashboard.MainDashboard;
 import frc.robot.hardware.RobotMap;
@@ -36,9 +34,9 @@ public class FortKnox {
     public FortKnox() {
         RobotMap.initialize();
 
-        //UsbCamera src = new UsbCamera("usb0", "/dev/video0");
-        //src.setResolution(320, 240);
-        //CameraServer.getInstance().startAutomaticCapture(src);
+        // UsbCamera src = new UsbCamera("usb0", "/dev/video0");
+        // src.setResolution(320, 240);
+        // CameraServer.getInstance().startAutomaticCapture(src);
 
         _drivetrain =
                 new Drivetrain(
@@ -49,7 +47,9 @@ public class FortKnox {
         _arm = new Arm(RobotMap.arm);
 
         _robot = new RobotState(RobotMap.driverJoystick, RobotMap.operatorJoystick);
-        _sensors = new SensorVals(RobotMap.leftMaster, RobotMap.rightMaster, RobotMap.pidgey, RobotMap.flywheel);
+        _sensors =
+                new SensorVals(
+                        RobotMap.leftMaster, RobotMap.rightMaster, RobotMap.pidgey, RobotMap.flywheel);
 
         _autoManager = new AutonomousManager();
 

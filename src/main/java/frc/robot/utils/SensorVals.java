@@ -18,7 +18,8 @@ public class SensorVals {
     public PigeonState pidgeyState;
     public double flywheelSpeed;
 
-    public SensorVals(BaseTalon leftMaster, BaseTalon rightMaster, PigeonIMU pigeon, TalonFX flywheel) {
+    public SensorVals(
+            BaseTalon leftMaster, BaseTalon rightMaster, PigeonIMU pigeon, TalonFX flywheel) {
         _leftTalon = leftMaster;
         _rightTalon = rightMaster;
         _pidgey = pigeon;

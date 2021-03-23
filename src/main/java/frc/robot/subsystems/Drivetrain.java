@@ -78,7 +78,7 @@ public class Drivetrain {
                         /* Find the position to stay at, and the angle to turn toward */
                         _positionToStay = _rightMaster.getSelectedSensorPosition(0);
                         _angleToTurn =
-                            _rightMaster.getSelectedSensorPosition(1) - (target.x * NATIVE_UNITS_TO_ANGLE);
+                                _rightMaster.getSelectedSensorPosition(1) - (target.x * NATIVE_UNITS_TO_ANGLE);
                         _currentAlignState = AlignState.ImuPID;
                         _lowpowerStopWatch.start();
                         break;
@@ -89,7 +89,7 @@ public class Drivetrain {
                         /* If our output percent is small, we're probably there */
                         System.out.println(_lowpowerStopWatch.getDuration());
                         if (Math.abs(_rightMaster.getMotorOutputPercent()) < OUTPUT_THRESHOLD) {
-                            if(_lowpowerStopWatch.getDuration() > LOW_POWER_TIMEOUT) {
+                            if (_lowpowerStopWatch.getDuration() > LOW_POWER_TIMEOUT) {
                                 _currentAlignState = AlignState.Check;
                                 _stopWatch.start();
                             }

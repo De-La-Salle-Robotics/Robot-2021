@@ -10,10 +10,10 @@ import frc.robot.utils.RobotState.ShooterState;
 public class Flywheel {
     private final double flywheelMinThreshold = 50;
     private final double flywheelMaxThreshold = 300;
-    private final double redZone = 16700;
+    private final double redZone = 15700;
     private final double blueZone = 14675;
-    private final double yellowZone = 18200;
-    private final double greenZone = 20000;
+    private final double yellowZone = 15200;
+    private final double greenZone = 11000;
     private final double indexTimeLength = 0.0;
     private final double indexPowerForward = 1;
     private final double indexPowerReverse = -0.15;
@@ -62,7 +62,7 @@ public class Flywheel {
         }
 
         boolean autoFeed;
-        if(lastAutoFeed) {
+        if (lastAutoFeed) {
             autoFeed = flywheel.getSelectedSensorVelocity() > (flywheelpower - flywheelMaxThreshold);
         } else {
             autoFeed = flywheel.getSelectedSensorVelocity() > (flywheelpower - flywheelMinThreshold);
@@ -88,8 +88,7 @@ public class Flywheel {
             feederpower = indexPowerForward;
         } else if (joysticks.powerCellState == PCState.Spit) {
             feederpower = indexPowerReverse;
-        } else if (joysticks.shooterState == ShooterState.Shooting
-                && autoFeed) {
+        } else if (joysticks.shooterState == ShooterState.Shooting && autoFeed) {
             feederpower = indexPowerForward;
         } else {
             feederpower = 0;

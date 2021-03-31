@@ -52,6 +52,7 @@ public class RobotState {
         Position,
         MotionMagic,
         AlignToTarget,
+        Coast,
     }
 
     public class DTStruct {
@@ -201,6 +202,7 @@ public class RobotState {
             */
             if (_operator.getRawButton(10) || robotState == FortKnoxState.Disabled) {
                 shooterState = ShooterState.Off;
+                driveTrainState.state = DriveTrainState.Coast;
             } else if (_operator.getRawButton(1)) {
                 shooterState = ShooterState.PrepareShoot;
             } else {

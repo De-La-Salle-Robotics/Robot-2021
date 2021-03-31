@@ -15,6 +15,11 @@ public class FlywheelConfigs {
         configuration.velocityMeasurementPeriod = VelocityMeasPeriod.Period_10Ms;
         configuration.velocityMeasurementWindow = 32;
 
+        configuration.supplyCurrLimit.currentLimit = 40;
+        configuration.supplyCurrLimit.enable = true;
+        configuration.supplyCurrLimit.triggerThresholdCurrent = 45;
+        configuration.supplyCurrLimit.triggerThresholdTime = 0;
+
         flywheel.configAllSettings(configuration);
     }
 }

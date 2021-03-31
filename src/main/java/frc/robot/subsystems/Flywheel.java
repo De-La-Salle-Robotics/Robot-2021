@@ -10,10 +10,10 @@ import frc.robot.utils.RobotState.ShooterState;
 public class Flywheel {
     private final double flywheelMinThreshold = 50;
     private final double flywheelMaxThreshold = 300;
-    private final double redZone = 15700;
-    private final double blueZone = 14675;
-    private final double yellowZone = 15200;
-    private final double greenZone = 11000;
+    private final double redZone = 14825;
+    private final double blueZone = 13550;
+    private final double yellowZone = 12750;
+    private final double greenZone = 20450;
     private final double indexTimeLength = 0.0;
     private final double indexPowerForward = 1;
     private final double indexPowerReverse = -0.15;

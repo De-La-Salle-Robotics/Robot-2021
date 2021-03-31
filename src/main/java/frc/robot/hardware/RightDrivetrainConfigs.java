@@ -9,7 +9,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.sensors.PigeonIMU;
 
 public class RightDrivetrainConfigs {
-    private static final double statorlimit = 50;
+    private static final double statorlimit = 36;
 
     public static void configSide(
             TalonFX master, TalonFX slave, TalonFX leftMaster, PigeonIMU pigeon) {
@@ -20,14 +20,19 @@ public class RightDrivetrainConfigs {
         masterConfigs.statorCurrLimit.triggerThresholdCurrent = statorlimit;
         masterConfigs.statorCurrLimit.triggerThresholdTime = 0;
 
-        masterConfigs.slot0.kP = 0;
+        masterConfigs.slot0.kP = 0.1;
         masterConfigs.slot0.kD = 0;
-        masterConfigs.slot0.kF = 0.0;
+        masterConfigs.slot0.kF = 0.022;
 
         masterConfigs.slot1.kP = 0.4;
         masterConfigs.slot1.kI = 0.3;
         masterConfigs.slot1.kD = 15;
         masterConfigs.slot1.maxIntegralAccumulator = 120;
+
+        masterConfigs.slot2.kP = 0.3;
+        masterConfigs.slot2.kI = 0.02;
+        masterConfigs.slot2.maxIntegralAccumulator = 1000;
+        masterConfigs.slot2.closedLoopPeakOutput = 0.2;
 
         masterConfigs.remoteFilter0.remoteSensorDeviceID = leftMaster.getDeviceID();
         masterConfigs.remoteFilter0.remoteSensorSource = RemoteSensorSource.TalonFX_SelectedSensor;
@@ -38,8 +43,8 @@ public class RightDrivetrainConfigs {
         masterConfigs.primaryPID.selectedFeedbackSensor = FeedbackDevice.SensorDifference;
         masterConfigs.auxiliaryPID.selectedFeedbackSensor = FeedbackDevice.RemoteSensor1;
 
-        masterConfigs.motionCruiseVelocity = 1800;
-        masterConfigs.motionAcceleration = 3000;
+        masterConfigs.motionCruiseVelocity = 20000;
+        masterConfigs.motionAcceleration = 15000;
 
         master.configAllSettings(masterConfigs);
         master.setInverted(true);

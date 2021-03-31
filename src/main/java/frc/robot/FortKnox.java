@@ -40,7 +40,12 @@ public class FortKnox {
 
         _drivetrain =
                 new Drivetrain(
-                        RobotMap.leftMaster, RobotMap.rightMaster, RobotMap.pidgey, RobotMap.limelight);
+                        RobotMap.leftMaster,
+                        RobotMap.rightMaster,
+                        RobotMap.leftSlave,
+                        RobotMap.rightSlave,
+                        RobotMap.pidgey,
+                        RobotMap.limelight);
         _spinner = new Spinner(RobotMap.spinner);
         _flywheel = new Flywheel(RobotMap.flywheel, RobotMap.feeder);
         _intake = new Intake(RobotMap.intake);

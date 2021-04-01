@@ -8,33 +8,29 @@ import frc.robot.utils.SensorVals;
 public class Slalom implements IRoutine {
     /* Distance, Heading, Time */
     private Action[] routines = {
-        //first turn
+        // first turn
         new MMDrive(120000, 75, 1.2),
-        //first counterturn
+        // first counterturn
         new MMDrive(190000, -75, 1.2),
-        //first driveout
+        // first driveout
         new MMDrive(190000, 0, 1.5),
-        //second turn
-        new MMDrive (100000, -70, 1.0),
-        //second allign to cone
-        //new MMDrive(60000, 0, 1.0),
-        //second turnout
+        // second turn
+        new MMDrive(100000, -70, 1.0),
+        // second allign to cone
+        // new MMDrive(60000, 0, 1.0),
+        // second turnout
         new MMDrive(550000, 330, 3),
-        //second counterturn
+        // second counterturn
         new MMDrive(150000, -80, 1.5),
-        //second driveout
+        // second driveout
         new MMDrive(240000, 0, 2),
-        //third turn
+        // third turn
         new MMDrive(120000, -75, 1.2),
-        //third allign to cone
+        // third allign to cone
         new MMDrive(60000, 0, 0.7),
-        //third counterturn
+        // third counterturn
         new MMDrive(90000, 75, 1.2),
-
-
     };
-
-
 
     public String getName() {
         return "Slalom";

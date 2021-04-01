@@ -8,19 +8,19 @@ import frc.robot.utils.SensorVals;
 public class Barrel implements IRoutine {
     /* Distance, Heading, Time */
     private Action[] routines = {
-        //first cone
+        // first cone
         new MMDrive(270000, 2.5, 1.6),
-        //first cone turn 
+        // first cone turn
         new MMDrive(500000, -360, 3.0),
-        //second cone drive
+        // second cone drive
         new MMDrive(250000, -15, 1.1),
-        //second cone turn 
+        // second cone turn
         new MMDrive(450000, 340, 2.7),
-        //third cone drive
+        // third cone drive
         new MMDrive(250000, -10, 1.25),
-        //third cone turn 
+        // third cone turn
         new MMDrive(390000, 220, 2.7),
-        //drive home
+        // drive home
         new MMDrive(770000, 0, 6),
     };
 

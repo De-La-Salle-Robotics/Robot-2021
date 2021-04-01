@@ -154,7 +154,7 @@ public class RobotState {
             rightSide /= Math.abs(rightSide);
         }
 
-        if(_driver.getRawButton(1)) {
+        if (_driver.getRawButton(1)) {
             RobotMap.pcm.setClosedLoopControl(true);
         } else {
             RobotMap.pcm.setClosedLoopControl(false);

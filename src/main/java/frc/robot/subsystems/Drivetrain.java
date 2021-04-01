@@ -74,7 +74,7 @@ public class Drivetrain {
         }
 
         if (joysticks.driveTrainState.state == DriveTrainState.Coast) {
-            if(_coastStopWatch.getDuration() > 1) {
+            if (_coastStopWatch.getDuration() > 1) {
                 _leftMaster.setNeutralMode(NeutralMode.Coast);
                 _rightMaster.setNeutralMode(NeutralMode.Coast);
                 _leftFollower.setNeutralMode(NeutralMode.Coast);
@@ -140,8 +140,7 @@ public class Drivetrain {
                         break;
                     case ImuPID:
                         _leftMaster.follow(_rightMaster, FollowerType.AuxOutput1);
-                        _rightMaster.set(
-                                TalonFXControlMode.PercentOutput, 0, DemandType.AuxPID, _angleToTurn);
+                        _rightMaster.set(TalonFXControlMode.PercentOutput, 0, DemandType.AuxPID, _angleToTurn);
                         /* If our output percent is small, we're probably there */
                         if (Math.abs(_rightMaster.getMotorOutputPercent()) < OUTPUT_THRESHOLD) {
                             if (_lowpowerStopWatch.getDuration() > LOW_POWER_TIMEOUT) {

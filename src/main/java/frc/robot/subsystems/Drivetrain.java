@@ -32,6 +32,7 @@ public class Drivetrain {
 
     private StopWatch _stopWatch;
     private StopWatch _lowpowerStopWatch;
+    private StopWatch _coastStopWatch;
 
     private enum AlignState {
         SetAngle,
@@ -60,6 +61,8 @@ public class Drivetrain {
         _angleToTurn = 0;
         _stopWatch = new StopWatch();
         _lowpowerStopWatch = new StopWatch();
+        _coastStopWatch = new StopWatch();
+        _coastStopWatch.start();
     }
 
     public void operate(RobotState joysticks) {
@@ -71,11 +74,14 @@ public class Drivetrain {
         }
 
         if (joysticks.driveTrainState.state == DriveTrainState.Coast) {
-            _leftMaster.setNeutralMode(NeutralMode.Coast);
-            _rightMaster.setNeutralMode(NeutralMode.Coast);
-            _leftFollower.setNeutralMode(NeutralMode.Coast);
-            _rightFollower.setNeutralMode(NeutralMode.Coast);
+            if(_coastStopWatch.getDuration() > 1) {
+                _leftMaster.setNeutralMode(NeutralMode.Coast);
+                _rightMaster.setNeutralMode(NeutralMode.Coast);
+                _leftFollower.setNeutralMode(NeutralMode.Coast);
+                _rightFollower.setNeutralMode(NeutralMode.Coast);
+            }
         } else {
+            _coastStopWatch.start();
             _leftMaster.setNeutralMode(NeutralMode.Brake);
             _rightMaster.setNeutralMode(NeutralMode.Brake);
             _leftFollower.setNeutralMode(NeutralMode.Brake);
@@ -135,7 +141,7 @@ public class Drivetrain {
                     case ImuPID:
                         _leftMaster.follow(_rightMaster, FollowerType.AuxOutput1);
                         _rightMaster.set(
-                                TalonFXControlMode.Position, _positionToStay, DemandType.AuxPID, _angleToTurn);
+                                TalonFXControlMode.PercentOutput, 0, DemandType.AuxPID, _angleToTurn);
                         /* If our output percent is small, we're probably there */
                         if (Math.abs(_rightMaster.getMotorOutputPercent()) < OUTPUT_THRESHOLD) {
                             if (_lowpowerStopWatch.getDuration() > LOW_POWER_TIMEOUT) {

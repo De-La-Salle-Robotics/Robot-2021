@@ -30,9 +30,10 @@ public class RightDrivetrainConfigs {
         masterConfigs.slot1.maxIntegralAccumulator = 120;
 
         masterConfigs.slot2.kP = 0.3;
-        masterConfigs.slot2.kI = 0.02;
-        masterConfigs.slot2.maxIntegralAccumulator = 1000;
-        masterConfigs.slot2.closedLoopPeakOutput = 0.2;
+        masterConfigs.slot2.kI = 0.03;
+        masterConfigs.slot2.kD = 10;
+        masterConfigs.slot2.maxIntegralAccumulator = 1500;
+        masterConfigs.slot2.closedLoopPeakOutput = 0.5;
 
         masterConfigs.remoteFilter0.remoteSensorDeviceID = leftMaster.getDeviceID();
         masterConfigs.remoteFilter0.remoteSensorSource = RemoteSensorSource.TalonFX_SelectedSensor;

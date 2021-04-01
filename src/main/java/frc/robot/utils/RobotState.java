@@ -2,6 +2,7 @@ package frc.robot.utils;
 
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.FortKnox.FortKnoxState;
+import frc.robot.hardware.RobotMap;
 
 public class RobotState {
     public enum PCState {
@@ -151,6 +152,12 @@ public class RobotState {
         if (Math.abs(rightSide) > 1) {
             leftSide /= Math.abs(rightSide);
             rightSide /= Math.abs(rightSide);
+        }
+
+        if(_driver.getRawButton(1)) {
+            RobotMap.pcm.setClosedLoopControl(true);
+        } else {
+            RobotMap.pcm.setClosedLoopControl(false);
         }
 
         if (_driver.getRawButton(5)) {

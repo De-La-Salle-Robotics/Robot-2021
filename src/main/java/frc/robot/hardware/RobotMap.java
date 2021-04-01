@@ -3,6 +3,7 @@ package frc.robot.hardware;
 import com.ctre.phoenix.motorcontrol.can.*;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.sensors.PigeonIMU;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.subsystems.Limelight;
@@ -30,6 +31,8 @@ public class RobotMap {
     public static Joystick driverJoystick;
     public static Joystick operatorJoystick;
 
+    public static Compressor pcm;
+
     public static void initialize() {
         leftMaster = new TalonFX(0);
         leftSlave = new TalonFX(1);
@@ -54,6 +57,8 @@ public class RobotMap {
         driverJoystick = new Joystick(0);
         operatorJoystick = new Joystick(1);
 
+        pcm = new Compressor(0);
+
         configControllers();
     }
 
@@ -61,6 +66,6 @@ public class RobotMap {
         LeftDrivetrainConfigs.configSide(leftMaster, leftSlave);
         RightDrivetrainConfigs.configSide(rightMaster, rightSlave, leftMaster, pidgey);
         FlywheelConfigs.configFlywheel(flywheel);
-        feedexConfigs.configFeedex(spinner, feeder);
+        FeedexConfigs.configFeedex(spinner, feeder);
     }
 }

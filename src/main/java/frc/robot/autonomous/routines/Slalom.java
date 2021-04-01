@@ -5,14 +5,35 @@ import frc.robot.autonomous.actions.MMDrive;
 import frc.robot.utils.RobotState;
 import frc.robot.utils.SensorVals;
 
-public class Test implements IRoutine {
+public class Slalom implements IRoutine {
     /* Distance, Heading, Time */
     private Action[] routines = {
-        new MMDrive(-22000, 0, 3.0),
+        // first turn
+        new MMDrive(120000, 75, 1.2),
+        // first counterturn
+        new MMDrive(190000, -75, 1.2),
+        // first driveout
+        new MMDrive(190000, 0, 1.5),
+        // second turn
+        new MMDrive(100000, -70, 1.0),
+        // second allign to cone
+        // new MMDrive(60000, 0, 1.0),
+        // second turnout
+        new MMDrive(550000, 330, 3),
+        // second counterturn
+        new MMDrive(150000, -80, 1.5),
+        // second driveout
+        new MMDrive(240000, 0, 2),
+        // third turn
+        new MMDrive(120000, -75, 1.2),
+        // third allign to cone
+        new MMDrive(60000, 0, 0.7),
+        // third counterturn
+        new MMDrive(90000, 75, 1.2),
     };
 
     public String getName() {
-        return "HENS";
+        return "Slalom";
     }
 
     public void end(RobotState robot) {
@@ -38,6 +59,7 @@ public class Test implements IRoutine {
         /* Reset variables to initial settings */
         _finished = false;
         routines[0].initialize(sensors.totalRobotDist, sensors.rawHeading);
+        _currentAction = 0;
     }
 
     public void onLoop(SensorVals sensors, RobotState robot) {

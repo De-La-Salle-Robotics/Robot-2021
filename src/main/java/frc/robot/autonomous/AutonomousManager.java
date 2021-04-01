@@ -5,7 +5,7 @@ import frc.robot.utils.*;
 import frc.robot.utils.RobotState.AutonState;
 
 public class AutonomousManager {
-    private final int TOTAL_ROUTINES = 8;
+    private final int TOTAL_ROUTINES = 11;
 
     private void selectRoutine(int val) {
         _routineVal = val;
@@ -33,6 +33,15 @@ public class AutonomousManager {
                 break;
             case 7:
                 _currentRoutine = new FourBall();
+                break;
+            case 8:
+                _currentRoutine = new Bounce();
+                break;
+            case 9:
+                _currentRoutine = new Barrel();
+                break;
+            case 10:
+                _currentRoutine = new Slalom();
                 break;
         }
         _currentRoutine.initialize();

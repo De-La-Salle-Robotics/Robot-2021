@@ -1,7 +1,5 @@
 package frc.robot;
 
-import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.cameraserver.CameraServer;
 import frc.robot.autonomous.AutonomousManager;
 import frc.robot.dashboard.MainDashboard;
 import frc.robot.hardware.RobotMap;
@@ -26,8 +24,6 @@ public class FortKnox {
 
     private Flywheel _flywheel;
 
-    private Limelight _limelight;
-
     private AutonomousManager _autoManager;
 
     private MainDashboard _dashboard;
@@ -38,33 +34,41 @@ public class FortKnox {
     public FortKnox() {
         RobotMap.initialize();
 
-        UsbCamera src = new UsbCamera("usb0", "/dev/video0");
-        src.setResolution(320, 240);
-        CameraServer.getInstance().startAutomaticCapture(src);
+        // UsbCamera src = new UsbCamera("usb0", "/dev/video0");
+        // src.setResolution(320, 240);
+        // CameraServer.getInstance().startAutomaticCapture(src);
 
-        _drivetrain = new Drivetrain(RobotMap.leftMaster, RobotMap.rightMaster, RobotMap.pidgey);
+        _drivetrain =
+                new Drivetrain(
+                        RobotMap.leftMaster,
+                        RobotMap.rightMaster,
+                        RobotMap.leftSlave,
+                        RobotMap.rightSlave,
+                        RobotMap.pidgey,
+                        RobotMap.limelight);
         _spinner = new Spinner(RobotMap.spinner);
         _flywheel = new Flywheel(RobotMap.flywheel, RobotMap.feeder);
         _intake = new Intake(RobotMap.intake);
         _arm = new Arm(RobotMap.arm);
-        _limelight = new Limelight();
 
         _robot = new RobotState(RobotMap.driverJoystick, RobotMap.operatorJoystick);
-        _sensors = new SensorVals(RobotMap.leftMaster, RobotMap.rightMaster, RobotMap.pidgey);
+        _sensors =
+                new SensorVals(
+                        RobotMap.leftMaster, RobotMap.rightMaster, RobotMap.pidgey, RobotMap.flywheel);
 
         _autoManager = new AutonomousManager();
 
-        _dashboard = new MainDashboard(_sensors, _robot, _autoManager);
+        _dashboard = new MainDashboard(_sensors, _robot, _autoManager, RobotMap.limelight);
 
         _currentState = FortKnoxState.Disabled;
         _dashboard.start();
     }
 
     public void periodicTasks() {
-        _robot.getJoystickValues();
+        _robot.getJoystickValues(_currentState);
         _sensors.getSensorValues();
 
-        _limelight.update();
+        RobotMap.limelight.update();
 
         switch (_currentState) {
             case Autonomous:

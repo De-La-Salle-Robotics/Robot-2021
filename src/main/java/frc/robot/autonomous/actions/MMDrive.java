@@ -34,6 +34,7 @@ public class MMDrive implements Action {
         _startDist = startForward;
         _startHead = startHeading;
 
+        _timer.reset();
         _timer.start();
     }
 

@@ -20,7 +20,7 @@ public class Spinner {
         if (joysticks.powerCellState == PCState.Suck
                 || joysticks.powerCellState == PCState.Index
                 || joysticks.shooterState == ShooterState.Shooting) {
-            spinnerpower = -0.18;
+            spinnerpower = -0.30;
         } else if (joysticks.powerCellState == RobotState.PCState.Blow) {
             spinnerpower = 0.18;
         } else {

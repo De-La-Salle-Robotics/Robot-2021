@@ -3,7 +3,6 @@ package frc.robot.subsystems;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Limelight {
     NetworkTable table;
@@ -26,6 +25,11 @@ public class Limelight {
             this.y = y;
             this.area = area;
         }
+
+        @Override
+        public String toString() {
+            return "Target: " + x + " " + y + " " + ". Area: " + area;
+        }
     }
 
     public Limelight() {
@@ -44,9 +48,9 @@ public class Limelight {
         targetArea = ta.getDouble(0.0);
 
         // post to smart dashboard periodically
-        SmartDashboard.putNumber("LimelightX", targetX);
-        SmartDashboard.putNumber("LimelightY", targetY);
-        SmartDashboard.putNumber("LimelightArea", targetArea);
+        // SmartDashboard.putNumber("LimelightX", targetX);
+        // SmartDashboard.putNumber("LimelightY", targetY);
+        // SmartDashboard.putNumber("LimelightArea", targetArea);
     }
 
     public LimelightTarget getTarget() {
